@@ -1,32 +1,41 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include "Game.h"
+
 const std::string RESOURCES_PATH = "Resources/";
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(330, 400), "SFML works!");
+    using namespace SnakeGame;
 
-	sf::Texture logo;
-	if (!logo.loadFromFile(RESOURCES_PATH + "xyz-logo.png"))
-	{
-		return EXIT_FAILURE;
-	}
-	sf::Sprite logo_sprite(logo);
+    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Snake Game by HoneyQumo");
 
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
+    Game game;
+    InitField(game.field);
 
-		window.clear();
-		window.draw(logo_sprite);
-		window.display();
-	}
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
 
-	return 0;
+        window.clear();
+
+        for (unsigned x = 0; x < NUMBER_CELLS; ++x)
+        {
+            for (unsigned y = 0; y < NUMBER_CELLS; ++y)
+            {
+                window.draw(game.field.cells[x][y].shape);
+            }
+        }
+
+
+        window.display();
+    }
+
+    return 0;
 }
