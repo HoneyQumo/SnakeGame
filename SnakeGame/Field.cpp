@@ -4,24 +4,24 @@ namespace SnakeGame
 {
     void InitField(Field& field)
     {
+        field.gridTexture.clear();
+        field.gridTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+
         for (unsigned x = 0; x < NUMBER_CELLS; ++x)
         {
             for (unsigned y = 0; y < NUMBER_CELLS; ++y)
             {
                 Cell& cell = field.cells[x][y];
                 InitCell(cell, x, y);
+                field.gridTexture.draw(cell.shape);
             }
         }
+        field.gridTexture.display();
+        field.gridSprite.setTexture(field.gridTexture.getTexture());
     }
 
-    void DrawField(sf::RenderWindow& window, Field& field)
+    void DrawField(sf::RenderWindow& window, const Field& field)
     {
-        for (auto& row : field.cells)
-        {
-            for (auto& cell : row)
-            {
-                window.draw(cell.shape);
-            }
-        }
+        window.draw(field.gridSprite);
     }
 }
