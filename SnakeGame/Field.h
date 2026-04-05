@@ -10,4 +10,6 @@ namespace SnakeGame
     };
 
     void InitField(Field& field);
+
+    void DrawField(sf::RenderWindow& window, Field& field);
 }

@@ -8,4 +8,6 @@ namespace SnakeGame
     {
         Field field;
     };
+
+    void DrawGame(sf::RenderWindow& window, Game& game);
 }

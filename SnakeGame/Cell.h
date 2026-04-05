@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "SFML/Graphics.hpp"
+#include "Constants.h"
 
 namespace SnakeGame
 {
@@ -8,5 +9,5 @@ namespace SnakeGame
         sf::RectangleShape shape;
     };
 
-    // void InitCell(Cell& cell);
+    void InitCell(Cell& cell, const unsigned& x, const unsigned& y);
 }

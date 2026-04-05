@@ -24,16 +24,7 @@ int main()
         }
 
         window.clear();
-
-        for (unsigned x = 0; x < NUMBER_CELLS; ++x)
-        {
-            for (unsigned y = 0; y < NUMBER_CELLS; ++y)
-            {
-                window.draw(game.field.cells[x][y].shape);
-            }
-        }
-
-
+        DrawGame(window, game);
         window.display();
     }
 
