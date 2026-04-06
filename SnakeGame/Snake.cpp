@@ -93,7 +93,6 @@ namespace SnakeGame
 
     void InitSnake(Snake& snake)
     {
-        unsigned x = 0;
         snake.segments = {
             CreateSnakeSegment({5, 10}, snake.headTexture),
             CreateSnakeSegment({4, 10}, snake.bodyTexture),
