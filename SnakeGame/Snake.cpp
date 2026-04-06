@@ -95,11 +95,11 @@ namespace SnakeGame
     {
         unsigned x = 0;
         snake.segments = {
-            CreateSnakeSegment({x++, 10}, snake.headTexture),
-            CreateSnakeSegment({x++, 10}, snake.bodyTexture),
-            CreateSnakeSegment({x++, 10}, snake.bodyTexture),
-            CreateSnakeSegment({x++, 10}, snake.bodyTexture),
-            CreateSnakeSegment({x++, 10}, snake.tailTexture)
+            CreateSnakeSegment({5, 10}, snake.headTexture),
+            CreateSnakeSegment({4, 10}, snake.bodyTexture),
+            CreateSnakeSegment({3, 10}, snake.bodyTexture),
+            CreateSnakeSegment({2, 10}, snake.bodyTexture),
+            CreateSnakeSegment({1, 10}, snake.tailTexture)
         };
     }
 
