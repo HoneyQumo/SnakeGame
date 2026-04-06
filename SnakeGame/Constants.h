@@ -25,7 +25,9 @@ namespace SnakeGame
 
     /* Field */
     constexpr unsigned NUMBER_CELLS = 20;
+    /* TODO: Может быть float? */
     constexpr unsigned CELL_WIDTH = SCREEN_WIDTH / NUMBER_CELLS;
+    /* TODO: Может быть float? */
     constexpr unsigned CELL_HEIGHT = SCREEN_HEIGHT / NUMBER_CELLS;
     const auto LIGHT_GREEN_COLOR = sf::Color(170, 215, 81, 255);
     const auto DARK_GREEN_COLOR = sf::Color(162, 209, 73, 255);
