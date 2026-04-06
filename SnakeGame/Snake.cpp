@@ -10,8 +10,8 @@ namespace SnakeGame
         SnakeSegment segment;
         segment.coord = coord;
         segment.oldCoord = coord;
-        segment.position = {static_cast<float>(coord.x) * CELL_WIDTH, static_cast<float>(coord.y) * CELL_HEIGHT};
         segment.sprite.setTexture(texture);
+        segment.sprite.setPosition(static_cast<float>(coord.x) * CELL_WIDTH, static_cast<float>(coord.y) * CELL_HEIGHT);
         SetSpriteSize(segment.sprite, CELL_WIDTH, CELL_HEIGHT);
         SetSpriteOrigin(segment.sprite, 0.f, 0.f);
 
@@ -25,7 +25,8 @@ namespace SnakeGame
             const auto& oldPosition = field.cells[segment.oldCoord.x][segment.oldCoord.y].shape.getPosition();
             const auto& newPosition = field.cells[segment.coord.x][segment.coord.y].shape.getPosition();
 
-            segment.position = oldPosition + (newPosition - oldPosition) * percent;
+            const sf::Vector2f position = oldPosition + (newPosition - oldPosition) * percent;
+            segment.sprite.setPosition(position);
         }
     }
 
@@ -64,9 +65,8 @@ namespace SnakeGame
         }
     }
 
-    void DrawSnakeSegment(sf::RenderWindow& window, SnakeSegment& segment)
+    void DrawSnakeSegment(sf::RenderWindow& window, const SnakeSegment& segment)
     {
-        segment.sprite.setPosition(segment.position.x, segment.position.y);
         window.draw(segment.sprite);
     }
 

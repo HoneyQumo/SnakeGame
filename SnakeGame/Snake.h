@@ -9,7 +9,6 @@ namespace SnakeGame
     {
         sf::Vector2u coord;
         sf::Vector2u oldCoord;
-        sf::Vector2f position;
         sf::Sprite sprite;
     };
 
@@ -25,7 +24,7 @@ namespace SnakeGame
     SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture);
     void UpdateSnakeSegmentsPosition(Snake& snake, const Field& field, const float& percent);
     void UpdateSnakeSegmentsCoord(Snake& snake);
-    void DrawSnakeSegment(sf::RenderWindow& window, SnakeSegment& segment);
+    void DrawSnakeSegment(sf::RenderWindow& window, const SnakeSegment& segment);
 
     void SnakeKeyboardHandler(Direction& direction);
 
