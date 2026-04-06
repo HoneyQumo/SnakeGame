@@ -14,4 +14,10 @@ namespace SnakeGame
         const sf::FloatRect spriteRect = sprite.getLocalBounds();
         sprite.setOrigin(originX * spriteRect.width, originY * spriteRect.height);
     }
+
+    void CalculateCoordinates(sf::Vector2u& coord, const sf::Vector2i value)
+    {
+        coord.x += value.x;
+        coord.y += value.y;
+    }
 }

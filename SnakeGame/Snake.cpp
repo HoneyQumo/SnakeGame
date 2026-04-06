@@ -10,10 +10,11 @@ namespace SnakeGame
         SnakeSegment segment;
         segment.coord = coord;
         segment.oldCoord = coord;
+        segment.direction = {1, 0};
         segment.sprite.setTexture(texture);
-        segment.sprite.setPosition(static_cast<float>(coord.x) * CELL_WIDTH, static_cast<float>(coord.y) * CELL_HEIGHT);
+        segment.sprite.setPosition(coord.x * CELL_WIDTH + CELL_WIDTH / 2.f, coord.y * CELL_HEIGHT + CELL_HEIGHT / 2.f);
         SetSpriteSize(segment.sprite, CELL_WIDTH, CELL_HEIGHT);
-        SetSpriteOrigin(segment.sprite, 0.f, 0.f);
+        SetSpriteOrigin(segment.sprite, 0.5f, 0.5f);
 
         return segment;
     }
@@ -25,7 +26,10 @@ namespace SnakeGame
             const auto& oldPosition = field.cells[segment.oldCoord.x][segment.oldCoord.y].shape.getPosition();
             const auto& newPosition = field.cells[segment.coord.x][segment.coord.y].shape.getPosition();
 
-            const sf::Vector2f position = oldPosition + (newPosition - oldPosition) * percent;
+            sf::Vector2f position = oldPosition + (newPosition - oldPosition) * percent;
+            position.x += static_cast<float>(CELL_WIDTH) / 2.f;
+            position.y += static_cast<float>(CELL_HEIGHT) / 2.f;
+
             segment.sprite.setPosition(position);
         }
     }
@@ -34,34 +38,35 @@ namespace SnakeGame
     {
         for (unsigned i = 0; i < snake.segments.size(); ++i)
         {
-            snake.segments[i].oldCoord = snake.segments[i].coord;
+            SnakeSegment& segment = snake.segments[i];
+            segment.oldCoord = segment.coord;
+            CalculateCoordinates(segment.coord, segment.direction);
 
-            if (i == 0)
-            {
-                SnakeSegment& headSegment = snake.segments[i];
+            if (i == 0) continue;
 
-                switch (snake.direction)
-                {
-                case Direction::Up:
-                    headSegment.coord.y--;
-                    break;
-                case Direction::Right:
-                    headSegment.coord.x++;
-                    break;
-                case Direction::Down:
-                    headSegment.coord.y++;
-                    break;
-                case Direction::Left:
-                    headSegment.coord.x--;
-                    break;
-                }
-            }
-            else
-            {
-                SnakeSegment& segment = snake.segments[i];
-                const SnakeSegment& previousSegment = snake.segments[i - 1];
-                segment.coord = previousSegment.oldCoord;
-            }
+            const SnakeSegment& previousSegment = snake.segments[i - 1];
+            segment.direction = previousSegment.direction;
+            segment.coord = previousSegment.oldCoord;
+        }
+    }
+
+    void UpdateSnakeSegmentRotation(SnakeSegment& segment)
+    {
+        if (segment.direction.y == -1)
+        {
+            segment.sprite.setRotation(270.f);
+        }
+        else if (segment.direction.y == 1)
+        {
+            segment.sprite.setRotation(90.f);
+        }
+        else if (segment.direction.x == 1)
+        {
+            segment.sprite.setRotation(0.f);
+        }
+        else if (segment.direction.x == -1)
+        {
+            segment.sprite.setRotation(180.f);
         }
     }
 
@@ -71,23 +76,23 @@ namespace SnakeGame
     }
 
 
-    void SnakeKeyboardHandler(Direction& direction)
+    void SnakeKeyboardHandler(SnakeSegment& headSegment)
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
-            direction = Direction::Right;
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        {
-            direction = Direction::Up;
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        {
-            direction = Direction::Left;
+            headSegment.direction = {0, -1};
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
-            direction = Direction::Down;
+            headSegment.direction = {0, 1};
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            headSegment.direction = {1, 0};
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            headSegment.direction = {-1, 0};
         }
     }
 
@@ -121,6 +126,7 @@ namespace SnakeGame
     {
         for (auto& segment : snake.segments)
         {
+            UpdateSnakeSegmentRotation(segment);
             DrawSnakeSegment(window, segment);
         }
     }
