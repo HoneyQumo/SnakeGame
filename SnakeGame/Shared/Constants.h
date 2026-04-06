@@ -11,8 +11,8 @@ namespace SnakeGame
     const std::string RESOURCES_GRAPHICS = RESOURCES_PATH + "Graphics";
 
     /* Video */
-    constexpr unsigned int SCREEN_WIDTH = 800;
-    constexpr unsigned int SCREEN_HEIGHT = 800;
+    constexpr unsigned SCREEN_WIDTH = 800;
+    constexpr unsigned SCREEN_HEIGHT = 800;
     constexpr float SCREEN_PADDING = 10.f;
     constexpr float OFFSET_TOP_WINDOW_10_PERCENT = (SCREEN_HEIGHT / 100.f) * 10.f;
     constexpr float OFFSET_TOP_WINDOW_20_PERCENT = (SCREEN_HEIGHT / 100.f) * 20.f;
@@ -25,9 +25,7 @@ namespace SnakeGame
 
     /* Field */
     constexpr unsigned NUMBER_CELLS = 20;
-    /* TODO: Может быть float? */
     constexpr unsigned CELL_WIDTH = SCREEN_WIDTH / NUMBER_CELLS;
-    /* TODO: Может быть float? */
     constexpr unsigned CELL_HEIGHT = SCREEN_HEIGHT / NUMBER_CELLS;
     const auto LIGHT_GREEN_COLOR = sf::Color(170, 215, 81, 255);
     const auto DARK_GREEN_COLOR = sf::Color(162, 209, 73, 255);

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Constants.h"
+#include "Shared/Constants.h"
 #include "Field.h"
 #include "Snake.h"
 

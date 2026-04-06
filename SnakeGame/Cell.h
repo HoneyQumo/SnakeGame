@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "SFML/Graphics.hpp"
-#include "Constants.h"
+#include "Shared/Constants.h"
 
 namespace SnakeGame
 {

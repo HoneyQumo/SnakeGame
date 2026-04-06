@@ -16,9 +16,9 @@ namespace SnakeGame
     struct Snake
     {
         std::vector<SnakeSegment> segments;
-        sf::Texture headTexture, bodyTexture, tailTexture;
+        sf::Texture headTexture, bodyTexture, bodyEdgeTexture, tailTexture;
         // float segmentSize; /* ? */
-        float speed = 5.f;
+        float speed = 1.f;
         Direction direction = Direction::Right;
     };
 

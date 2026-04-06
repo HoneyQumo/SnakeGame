@@ -5,9 +5,10 @@ namespace SnakeGame
 {
     void InitGame(Game& game)
     {
-        assert(game.snake.headTexture.loadFromFile(RESOURCES_GRAPHICS + "\\head_right.png"));
-        assert(game.snake.bodyTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_horizontal.png"));
-        assert(game.snake.tailTexture.loadFromFile(RESOURCES_GRAPHICS + "\\tail_left.png"));
+        assert(game.snake.headTexture.loadFromFile(RESOURCES_GRAPHICS + "\\head_up.png"));
+        assert(game.snake.bodyTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_vertical.png"));
+        assert(game.snake.bodyEdgeTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_topright.png"));
+        assert(game.snake.tailTexture.loadFromFile(RESOURCES_GRAPHICS + "\\tail_up.png"));
 
         InitField(game.field);
         InitSnake(game.snake);
