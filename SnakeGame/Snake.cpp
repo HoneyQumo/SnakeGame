@@ -152,15 +152,15 @@ namespace SnakeGame
     {
         const float timeStep = 1.f / snake.speed;
         const float percent = movementTimer / timeStep;
-
-        UpdateSnakeSegmentsPosition(snake, field, percent);
-
+        
         if (movementTimer >= timeStep)
         {
             UpdateSnakeSegmentsCorner(snake);
             UpdateSnakeSegmentsCoord(snake);
             movementTimer -= timeStep;
         }
+
+        UpdateSnakeSegmentsPosition(snake, field, percent);
     }
 
     void DrawSnake(sf::RenderWindow& window, Snake& snake)
