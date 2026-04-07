@@ -19,6 +19,41 @@ namespace SnakeGame
         return segment;
     }
 
+    void UpdateSnakeSegmentsCorner(Snake& snake)
+    {
+        for (unsigned i = 0; i < snake.segments.size(); ++i)
+        {
+            SnakeSegment& segment = snake.segments[i];
+
+            if (i != snake.segments.size() - 1)
+            {
+                SnakeSegment& nextSegment = snake.segments[i + 1];
+
+                if (segment.direction != nextSegment.direction)
+                {
+                    auto& spriteColor = segment.sprite.getColor();
+                    segment.sprite.setColor(spriteColor == sf::Color::Red ? sf::Color::White : sf::Color::Red);
+                    nextSegment.direction = segment.direction;
+                    UpdateSnakeSegmentRotation(segment);
+                    break;
+                }
+            }
+            else
+            {
+                SnakeSegment& prevSegment = snake.segments[i - 1];
+
+                if (segment.direction != prevSegment.direction)
+                {
+                    auto& spriteColor = segment.sprite.getColor();
+                    segment.sprite.setColor(spriteColor == sf::Color::Red ? sf::Color::White : sf::Color::Red);
+                    segment.direction = prevSegment.direction;
+                    UpdateSnakeSegmentRotation(segment);
+                    break;
+                }
+            }
+        }
+    }
+
     void UpdateSnakeSegmentsPosition(Snake& snake, const Field& field, const float& percent)
     {
         for (auto& segment : snake.segments)
@@ -38,15 +73,24 @@ namespace SnakeGame
     {
         for (unsigned i = 0; i < snake.segments.size(); ++i)
         {
-            SnakeSegment& segment = snake.segments[i];
-            segment.oldCoord = segment.coord;
-            CalculateCoordinates(segment.coord, segment.direction);
+            /* Head */
+            if (i == 0)
+            {
+                SnakeSegment& head = snake.segments[i];
+                head.oldCoord = head.coord;
+                CalculateCoordinates(head.coord, head.direction);
+            }
+            /* Other segments */
+            else
+            {
+                SnakeSegment& segment = snake.segments[i];
+                const SnakeSegment& previousSegment = snake.segments[i - 1];
 
-            if (i == 0) continue;
+                segment.oldCoord = segment.coord;
+                CalculateCoordinates(segment.coord, segment.direction);
 
-            const SnakeSegment& previousSegment = snake.segments[i - 1];
-            segment.direction = previousSegment.direction;
-            segment.coord = previousSegment.oldCoord;
+                segment.coord = previousSegment.oldCoord;
+            }
         }
     }
 
@@ -70,14 +114,10 @@ namespace SnakeGame
         }
     }
 
-    void DrawSnakeSegment(sf::RenderWindow& window, const SnakeSegment& segment)
-    {
-        window.draw(segment.sprite);
-    }
-
 
     void SnakeKeyboardHandler(SnakeSegment& headSegment)
     {
+        /* TODO: Реализовать моментальный поворот головы змейки */
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
             headSegment.direction = {0, -1};
@@ -113,21 +153,21 @@ namespace SnakeGame
         const float timeStep = 1.f / snake.speed;
         const float percent = movementTimer / timeStep;
 
+        UpdateSnakeSegmentsPosition(snake, field, percent);
+
         if (movementTimer >= timeStep)
         {
+            UpdateSnakeSegmentsCorner(snake);
             UpdateSnakeSegmentsCoord(snake);
             movementTimer -= timeStep;
         }
-
-        UpdateSnakeSegmentsPosition(snake, field, percent);
     }
 
     void DrawSnake(sf::RenderWindow& window, Snake& snake)
     {
         for (auto& segment : snake.segments)
         {
-            UpdateSnakeSegmentRotation(segment);
-            DrawSnakeSegment(window, segment);
+            window.draw(segment.sprite);
         }
     }
 }

@@ -23,10 +23,10 @@ namespace SnakeGame
     };
 
     SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture);
+    void UpdateSnakeSegmentsCorner(Snake& snake);
     void UpdateSnakeSegmentsPosition(Snake& snake, const Field& field, const float& percent);
     void UpdateSnakeSegmentsCoord(Snake& snake);
     void UpdateSnakeSegmentRotation(SnakeSegment& segment);
-    void DrawSnakeSegment(sf::RenderWindow& window, const SnakeSegment& segment);
 
     void SnakeKeyboardHandler(SnakeSegment& headSegment);
 
