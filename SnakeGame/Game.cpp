@@ -15,10 +15,10 @@ namespace SnakeGame
     }
 
 
-    void UpdateGame(Game& game, float& movementTimer)
+    void UpdateGame(Game& game, const float& deltaTime)
     {
         SnakeKeyboardHandler(game.snake.segments[0]);
-        UpdateSnakeMovement(game.snake, game.field, movementTimer);
+        UpdateSnakeMovement(game.snake, deltaTime);
     }
 
     void DrawGame(sf::RenderWindow& window, Game& game)

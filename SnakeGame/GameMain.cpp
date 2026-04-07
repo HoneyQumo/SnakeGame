@@ -12,7 +12,6 @@ int main()
     InitGame(game);
 
     sf::Clock gameClock;
-    float movementTimer = 0.f;
     float lastTime = gameClock.getElapsedTime().asSeconds();
 
     while (window.isOpen())
@@ -20,7 +19,6 @@ int main()
         float currentTime = gameClock.getElapsedTime().asSeconds();
         float deltaTime = currentTime - lastTime;
         lastTime = currentTime;
-        movementTimer += deltaTime;
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -29,7 +27,7 @@ int main()
                 window.close();
         }
 
-        UpdateGame(game, movementTimer);
+        UpdateGame(game, deltaTime);
 
         window.clear();
         DrawGame(window, game);

@@ -12,6 +12,6 @@ namespace SnakeGame
     };
 
     void InitGame(Game& game);
-    void UpdateGame(Game& game, float& movementTimer);
+    void UpdateGame(Game& game, const float& deltaTime);
     void DrawGame(sf::RenderWindow& window, Game& game);
 }
