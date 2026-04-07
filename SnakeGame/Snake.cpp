@@ -163,6 +163,11 @@ namespace SnakeGame
 
     void UpdateSnakeMovement(Snake& snake, const float& deltaTime)
     {
+        /* TODO:
+         * - Добавить синхронизацию координаты от позиции
+         * - Добавить повороты по клеткам
+         */
+        
         SnakeSegment& headSegment = snake.segments[0];
         auto position = headSegment.sprite.getPosition();
 
