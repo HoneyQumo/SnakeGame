@@ -25,6 +25,8 @@ namespace SnakeGame
     // void UpdateSnakeSegmentsCorner(Snake& snake);
     // void UpdateSnakeSegmentsPosition(Snake& snake, const Field& field, const float& percent);
     // void UpdateSnakeSegmentsCoord(Snake& snake);
+    void MoveSnakeSegment(SnakeSegment& segment, float speed, const float& deltaTime);
+    void UpdateSnakeSegmentCoord(SnakeSegment& segment);
     void UpdateSnakeSegmentRotation(SnakeSegment& segment);
 
     void SnakeKeyboardHandler(SnakeSegment& headSegment);

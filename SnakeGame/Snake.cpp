@@ -18,6 +18,48 @@ namespace SnakeGame
         return segment;
     }
 
+    void MoveSnakeSegment(SnakeSegment& segment, const float speed, const float& deltaTime)
+    {
+        auto position = segment.sprite.getPosition();
+
+        switch (segment.direction)
+        {
+        case Direction::Up:
+            position.y -= speed * deltaTime;
+            segment.sprite.setPosition(position);
+            break;
+        case Direction::Down:
+            position.y += speed * deltaTime;
+            segment.sprite.setPosition(position);
+            break;
+        case Direction::Right:
+            position.x += speed * deltaTime;
+            segment.sprite.setPosition(position);
+            break;
+        case Direction::Left:
+            position.x -= speed * deltaTime;
+            segment.sprite.setPosition(position);
+            break;
+        }
+    }
+
+    void UpdateSnakeSegmentCoord(SnakeSegment& segment)
+    {
+        const auto position = segment.sprite.getPosition();
+
+        switch (segment.direction)
+        {
+        case Direction::Up:
+        case Direction::Down:
+            segment.coord.y = static_cast<int>(position.y / CELL_HEIGHT);
+            break;
+        case Direction::Right:
+        case Direction::Left:
+            segment.coord.x = static_cast<int>(position.x / CELL_WIDTH);
+            break;
+        }
+    }
+
     // void UpdateSnakeSegmentsCorner(Snake& snake)
     // {
     //     for (unsigned i = 0; i < snake.segments.size(); ++i)
@@ -115,7 +157,6 @@ namespace SnakeGame
 
     void SnakeKeyboardHandler(SnakeSegment& headSegment)
     {
-        /* TODO: Реализовать моментальный поворот головы змейки */
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
             headSegment.direction = Direction::Up;
@@ -163,33 +204,9 @@ namespace SnakeGame
 
     void UpdateSnakeMovement(Snake& snake, const float& deltaTime)
     {
-        /* TODO:
-         * - Добавить синхронизацию координаты от позиции
-         * - Добавить повороты по клеткам
-         */
-        
         SnakeSegment& headSegment = snake.segments[0];
-        auto position = headSegment.sprite.getPosition();
-
-        switch (headSegment.direction)
-        {
-        case Direction::Up:
-            position.y -= snake.speed * deltaTime;
-            headSegment.sprite.setPosition(position);
-            break;
-        case Direction::Down:
-            position.y += snake.speed * deltaTime;
-            headSegment.sprite.setPosition(position);
-            break;
-        case Direction::Right:
-            position.x += snake.speed * deltaTime;
-            headSegment.sprite.setPosition(position);
-            break;
-        case Direction::Left:
-            position.x -= snake.speed * deltaTime;
-            headSegment.sprite.setPosition(position);
-            break;
-        }
+        MoveSnakeSegment(headSegment, snake.speed, deltaTime);
+        UpdateSnakeSegmentCoord(headSegment);
     }
 
     void DrawSnake(sf::RenderWindow& window, const Snake& snake)
