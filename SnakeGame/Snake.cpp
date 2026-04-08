@@ -168,21 +168,25 @@ namespace SnakeGame
         {
             headSegment.direction = Direction::Up;
             SetSnakeSegmentCenterPosition(headSegment);
+            UpdateSnakeSegmentRotation(headSegment);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
             headSegment.direction = Direction::Down;
             SetSnakeSegmentCenterPosition(headSegment);
+            UpdateSnakeSegmentRotation(headSegment);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
             headSegment.direction = Direction::Right;
             SetSnakeSegmentCenterPosition(headSegment);
+            UpdateSnakeSegmentRotation(headSegment);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
             headSegment.direction = Direction::Left;
             SetSnakeSegmentCenterPosition(headSegment);
+            UpdateSnakeSegmentRotation(headSegment);
         }
     }
 
