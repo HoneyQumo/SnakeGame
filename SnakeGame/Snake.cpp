@@ -18,6 +18,28 @@ namespace SnakeGame
         return segment;
     }
 
+    bool CheckHeadSegmentDirectionMovement(const SnakeSegment& segment, const Direction direction)
+    {
+        if (segment.direction == direction) return false;
+
+        if (segment.direction == Direction::Up && direction == Direction::Down) return false;
+        if (segment.direction == Direction::Down && direction == Direction::Up) return false;
+        if (segment.direction == Direction::Right && direction == Direction::Left) return false;
+        if (segment.direction == Direction::Left && direction == Direction::Right) return false;
+
+        return true;
+    }
+    
+    void TryChangeHeadSegmentDirection(SnakeSegment& headSegment, const Direction newDirection)
+    {
+        if (CheckHeadSegmentDirectionMovement(headSegment, newDirection))
+        {
+            headSegment.direction = newDirection;
+            SetSnakeSegmentCenterPosition(headSegment);
+            UpdateSnakeSegmentRotation(headSegment);
+        }
+    }
+
     void MoveSnakeSegment(SnakeSegment& segment, const float speed, const float& deltaTime)
     {
         auto position = segment.sprite.getPosition();
@@ -91,27 +113,19 @@ namespace SnakeGame
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
-            headSegment.direction = Direction::Up;
-            SetSnakeSegmentCenterPosition(headSegment);
-            UpdateSnakeSegmentRotation(headSegment);
+            TryChangeHeadSegmentDirection(headSegment, Direction::Up);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
-            headSegment.direction = Direction::Down;
-            SetSnakeSegmentCenterPosition(headSegment);
-            UpdateSnakeSegmentRotation(headSegment);
+            TryChangeHeadSegmentDirection(headSegment, Direction::Down);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
-            headSegment.direction = Direction::Right;
-            SetSnakeSegmentCenterPosition(headSegment);
-            UpdateSnakeSegmentRotation(headSegment);
+            TryChangeHeadSegmentDirection(headSegment, Direction::Right);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
-            headSegment.direction = Direction::Left;
-            SetSnakeSegmentCenterPosition(headSegment);
-            UpdateSnakeSegmentRotation(headSegment);
+            TryChangeHeadSegmentDirection(headSegment, Direction::Left);
         }
     }
 
