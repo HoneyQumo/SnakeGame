@@ -44,7 +44,15 @@ namespace SnakeGame
                 SetSnakeSegmentCenterPosition(segment);
             }
 
-            AddTurnPointsIntoSnakeSegments(snake, {headSegment.sprite.getPosition(), {headSegment.direction, newDirection}});
+            TurnPoint turnPoint;
+            turnPoint.position = headSegment.sprite.getPosition();
+            turnPoint.direction = {headSegment.direction, newDirection};
+            turnPoint.sprite.setTexture(snake.bodyAngleTexture);
+            turnPoint.sprite.setPosition(headSegment.sprite.getPosition());
+            SetSpriteSize(turnPoint.sprite, CELL_WIDTH, CELL_HEIGHT);
+            SetSpriteOrigin(turnPoint.sprite, 0.5f, 0.5f);
+            
+            AddTurnPointsIntoSnakeSegments(snake, turnPoint);
         }
     }
 
@@ -76,7 +84,7 @@ namespace SnakeGame
         if (!segment.turnPoints.empty())
         {
             const TurnPoint& turnPoint = segment.turnPoints.front();
-
+            
             const float dx = position.x - turnPoint.position.x;
             const float dy = position.y - turnPoint.position.y;
             const float dist = std::sqrt(dx * dx + dy * dy);
@@ -98,7 +106,7 @@ namespace SnakeGame
         segment.sprite.setPosition(centredPositionX, centredPositionY);
     }
 
-    void AddTurnPointsIntoSnakeSegments(Snake& snake, const TurnPoint turnPoint)
+    void AddTurnPointsIntoSnakeSegments(Snake& snake, const TurnPoint& turnPoint)
     {
         /* skip head-segment */
         for (unsigned i = 1; i < snake.segments.size(); ++i)

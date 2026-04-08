@@ -10,7 +10,6 @@ namespace SnakeGame
     struct TurnPoint
     {
         sf::Vector2f position;
-        // Direction direction;
         DirectionTurn direction;
     };
 
@@ -36,9 +35,10 @@ namespace SnakeGame
     void MoveSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance);
     void TurnSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance);
     void SetSnakeSegmentCenterPosition(SnakeSegment& segment);
-    void AddTurnPointsIntoSnakeSegments(Snake& snake, TurnPoint turnPoint);
+    void AddTurnPointsIntoSnakeSegments(Snake& snake, const TurnPoint& turnPoint);
     void UpdateSnakeSegmentCoord(SnakeSegment& segment, const sf::Vector2f& position);
     void UpdateSnakeSegmentRotation(SnakeSegment& segment);
+
     void SnakeKeyboardHandler(Snake& snake);
 
     void InitSnake(Snake& snake);
