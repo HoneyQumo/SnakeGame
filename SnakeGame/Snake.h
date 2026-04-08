@@ -23,9 +23,9 @@ namespace SnakeGame
     SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture);
     bool HasHeadSegmentOppositeDirection(const SnakeSegment& segment, Direction direction);
     void TryChangeHeadSegmentDirection(SnakeSegment& headSegment, Direction newDirection);
-    void MoveSnakeSegment(SnakeSegment& segment, float speed, const float& deltaTime);
+    void MoveSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, float speed, const float& deltaTime);
     void SetSnakeSegmentCenterPosition(SnakeSegment& segment);
-    void UpdateSnakeSegmentCoord(SnakeSegment& segment);
+    void UpdateSnakeSegmentCoord(SnakeSegment& segment, const sf::Vector2f& position);
     void UpdateSnakeSegmentRotation(SnakeSegment& segment);
 
     void SnakeKeyboardHandler(SnakeSegment& headSegment);

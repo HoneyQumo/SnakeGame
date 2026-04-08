@@ -40,10 +40,8 @@ namespace SnakeGame
         }
     }
 
-    void MoveSnakeSegment(SnakeSegment& segment, const float speed, const float& deltaTime)
+    void MoveSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float speed, const float& deltaTime)
     {
-        auto position = segment.sprite.getPosition();
-
         switch (segment.direction)
         {
         case Direction::Up:
@@ -72,10 +70,8 @@ namespace SnakeGame
         segment.sprite.setPosition(centredPositionX, centredPositionY);
     }
 
-    void UpdateSnakeSegmentCoord(SnakeSegment& segment)
+    void UpdateSnakeSegmentCoord(SnakeSegment& segment, const sf::Vector2f& position)
     {
-        const auto position = segment.sprite.getPosition();
-
         switch (segment.direction)
         {
         case Direction::Up:
@@ -133,18 +129,23 @@ namespace SnakeGame
     {
         snake.segments = {
             CreateSnakeSegment({5, 10}, snake.headTexture),
-            // CreateSnakeSegment({4, 10}, snake.bodyTexture),
-            // CreateSnakeSegment({3, 10}, snake.bodyTexture),
-            // CreateSnakeSegment({2, 10}, snake.bodyTexture),
-            // CreateSnakeSegment({1, 10}, snake.tailTexture)
+            CreateSnakeSegment({4, 10}, snake.bodyTexture),
+            CreateSnakeSegment({3, 10}, snake.bodyTexture),
+            CreateSnakeSegment({2, 10}, snake.bodyTexture),
+            CreateSnakeSegment({1, 10}, snake.tailTexture)
         };
     }
 
     void UpdateSnakeMovement(Snake& snake, const float& deltaTime)
     {
-        SnakeSegment& headSegment = snake.segments[0];
-        MoveSnakeSegment(headSegment, snake.speed, deltaTime);
-        UpdateSnakeSegmentCoord(headSegment);
+        for (unsigned i = 0; i < snake.segments.size(); ++i)
+        {
+            SnakeSegment& segment = snake.segments[i];
+            sf::Vector2f position = segment.sprite.getPosition();
+
+            MoveSnakeSegment(segment, position, snake.speed, deltaTime);
+            UpdateSnakeSegmentCoord(segment, position);
+        }
     }
 
     void DrawSnake(sf::RenderWindow& window, const Snake& snake)
