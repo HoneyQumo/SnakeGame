@@ -18,13 +18,9 @@ namespace SnakeGame
         sf::Texture headTexture, bodyTexture, bodyEdgeTexture, tailTexture;
         float speed = 100.f;
         // float segmentSize; /* ? */
-        // Direction direction = Direction::Right;
     };
 
     SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture);
-    // void UpdateSnakeSegmentsCorner(Snake& snake);
-    // void UpdateSnakeSegmentsPosition(Snake& snake, const Field& field, const float& percent);
-    // void UpdateSnakeSegmentsCoord(Snake& snake);
     void MoveSnakeSegment(SnakeSegment& segment, float speed, const float& deltaTime);
     void SetSnakeSegmentCenterPosition(SnakeSegment& segment);
     void UpdateSnakeSegmentCoord(SnakeSegment& segment);
