@@ -43,6 +43,13 @@ namespace SnakeGame
         }
     }
 
+    void SetSnakeSegmentCenterPosition(SnakeSegment& segment)
+    {
+        const auto centredPositionX = (segment.coord.x * CELL_WIDTH) + CELL_WIDTH / 2.f;
+        const auto centredPositionY = (segment.coord.y * CELL_HEIGHT) + CELL_HEIGHT / 2.f;
+        segment.sprite.setPosition(centredPositionX, centredPositionY);
+    }
+
     void UpdateSnakeSegmentCoord(SnakeSegment& segment)
     {
         const auto position = segment.sprite.getPosition();
@@ -160,18 +167,22 @@ namespace SnakeGame
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
             headSegment.direction = Direction::Up;
+            SetSnakeSegmentCenterPosition(headSegment);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
             headSegment.direction = Direction::Down;
+            SetSnakeSegmentCenterPosition(headSegment);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
             headSegment.direction = Direction::Right;
+            SetSnakeSegmentCenterPosition(headSegment);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
             headSegment.direction = Direction::Left;
+            SetSnakeSegmentCenterPosition(headSegment);
         }
     }
 
