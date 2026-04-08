@@ -18,21 +18,21 @@ namespace SnakeGame
         return segment;
     }
 
-    bool CheckHeadSegmentDirectionMovement(const SnakeSegment& segment, const Direction direction)
+    bool HasHeadSegmentOppositeDirection(const SnakeSegment& segment, const Direction direction)
     {
-        if (segment.direction == direction) return false;
+        if (segment.direction == direction) return true;
 
-        if (segment.direction == Direction::Up && direction == Direction::Down) return false;
-        if (segment.direction == Direction::Down && direction == Direction::Up) return false;
-        if (segment.direction == Direction::Right && direction == Direction::Left) return false;
-        if (segment.direction == Direction::Left && direction == Direction::Right) return false;
+        if (segment.direction == Direction::Up && direction == Direction::Down) return true;
+        if (segment.direction == Direction::Down && direction == Direction::Up) return true;
+        if (segment.direction == Direction::Right && direction == Direction::Left) return true;
+        if (segment.direction == Direction::Left && direction == Direction::Right) return true;
 
-        return true;
+        return false;
     }
-    
+
     void TryChangeHeadSegmentDirection(SnakeSegment& headSegment, const Direction newDirection)
     {
-        if (CheckHeadSegmentDirectionMovement(headSegment, newDirection))
+        if (!HasHeadSegmentOppositeDirection(headSegment, newDirection))
         {
             headSegment.direction = newDirection;
             SetSnakeSegmentCenterPosition(headSegment);
