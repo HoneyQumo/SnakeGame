@@ -13,5 +13,5 @@ namespace SnakeGame
 
     void InitGame(Game& game);
     void UpdateGame(Game& game, const float& deltaTime);
-    void DrawGame(sf::RenderWindow& window, Game& game);
+    void DrawGame(sf::RenderWindow& window, const Game& game);
 }

@@ -21,4 +21,10 @@ namespace SnakeGame
         Left = static_cast<int>(Direction::Left),
         Right = static_cast<int>(Direction::Right)
     };
+
+    struct DirectionTurn
+    {
+        Direction from;
+        Direction to;
+    };
 }

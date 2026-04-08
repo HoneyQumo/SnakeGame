@@ -24,7 +24,7 @@ namespace SnakeGame
         UpdateSnakeMovement(game.snake, deltaTime);
     }
 
-    void DrawGame(sf::RenderWindow& window, Game& game)
+    void DrawGame(sf::RenderWindow& window, const Game& game)
     {
         DrawField(window, game.field);
         DrawSnake(window, game.snake);

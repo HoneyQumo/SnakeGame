@@ -10,7 +10,8 @@ namespace SnakeGame
     struct TurnPoint
     {
         sf::Vector2f position;
-        Direction direction;
+        // Direction direction;
+        DirectionTurn direction;
     };
 
     struct SnakeSegment
@@ -32,7 +33,8 @@ namespace SnakeGame
     SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture);
     bool HasHeadSegmentOppositeDirection(const SnakeSegment& segment, Direction direction);
     void TryChangeHeadSegmentDirection(Snake& snake, Direction newDirection);
-    void MoveSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, float speed, const float& deltaTime);
+    void MoveSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance);
+    void TurnSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance);
     void SetSnakeSegmentCenterPosition(SnakeSegment& segment);
     void AddTurnPointsIntoSnakeSegments(Snake& snake, TurnPoint turnPoint);
     void UpdateSnakeSegmentCoord(SnakeSegment& segment, const sf::Vector2f& position);

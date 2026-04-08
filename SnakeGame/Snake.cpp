@@ -44,30 +44,50 @@ namespace SnakeGame
                 SetSnakeSegmentCenterPosition(segment);
             }
 
-            AddTurnPointsIntoSnakeSegments(snake, {headSegment.sprite.getPosition(), headSegment.direction});
+            AddTurnPointsIntoSnakeSegments(snake, {headSegment.sprite.getPosition(), {headSegment.direction, newDirection}});
         }
     }
 
-    void MoveSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float speed, const float& deltaTime)
+    void MoveSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance)
     {
         switch (segment.direction)
         {
         case Direction::Up:
-            position.y -= speed * deltaTime;
+            position.y -= distance;
             segment.sprite.setPosition(position);
             break;
         case Direction::Down:
-            position.y += speed * deltaTime;
+            position.y += distance;
             segment.sprite.setPosition(position);
             break;
         case Direction::Right:
-            position.x += speed * deltaTime;
+            position.x += distance;
             segment.sprite.setPosition(position);
             break;
         case Direction::Left:
-            position.x -= speed * deltaTime;
+            position.x -= distance;
             segment.sprite.setPosition(position);
             break;
+        }
+    }
+
+    void TurnSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance)
+    {
+        if (!segment.turnPoints.empty())
+        {
+            const TurnPoint& turnPoint = segment.turnPoints.front();
+
+            const float dx = position.x - turnPoint.position.x;
+            const float dy = position.y - turnPoint.position.y;
+            const float dist = std::sqrt(dx * dx + dy * dy);
+
+            if (dist < distance)
+            {
+                position = turnPoint.position;
+                segment.direction = turnPoint.direction.to;
+                UpdateSnakeSegmentRotation(segment);
+                segment.turnPoints.pop();
+            }
         }
     }
 
@@ -146,19 +166,7 @@ namespace SnakeGame
     void InitSnake(Snake& snake)
     {
         snake.segments = {
-            CreateSnakeSegment({16, 10}, snake.headTexture),
-            CreateSnakeSegment({15, 10}, snake.bodyTexture),
-            CreateSnakeSegment({14, 10}, snake.bodyTexture),
-            CreateSnakeSegment({13, 10}, snake.bodyTexture),
-            CreateSnakeSegment({12, 10}, snake.bodyTexture),
-            CreateSnakeSegment({11, 10}, snake.bodyTexture),
-            CreateSnakeSegment({10, 10}, snake.bodyTexture),
-            CreateSnakeSegment({9, 10}, snake.bodyTexture),
-            CreateSnakeSegment({8, 10}, snake.bodyTexture),
-            CreateSnakeSegment({7, 10}, snake.bodyTexture),
-            CreateSnakeSegment({6, 10}, snake.bodyTexture),
-            CreateSnakeSegment({5, 10}, snake.bodyTexture),
-            CreateSnakeSegment({4, 10}, snake.bodyTexture),
+            CreateSnakeSegment({4, 10}, snake.headTexture),
             CreateSnakeSegment({3, 10}, snake.bodyTexture),
             CreateSnakeSegment({2, 10}, snake.bodyTexture),
             CreateSnakeSegment({1, 10}, snake.tailTexture)
@@ -167,28 +175,15 @@ namespace SnakeGame
 
     void UpdateSnakeMovement(Snake& snake, const float& deltaTime)
     {
+        const float computedDistance = snake.speed * deltaTime;
+
         for (unsigned i = 0; i < snake.segments.size(); ++i)
         {
             SnakeSegment& segment = snake.segments[i];
             sf::Vector2f position = segment.sprite.getPosition();
 
-            if (!segment.turnPoints.empty())
-            {
-                const TurnPoint& turnPoint = segment.turnPoints.front();
-
-                const float dist = std::sqrt(std::pow(position.x - turnPoint.position.x, 2) + std::pow(position.y - turnPoint.position.y, 2));
-
-                if (dist < (snake.speed * deltaTime))
-                {
-                    position = turnPoint.position;
-                    segment.direction = turnPoint.direction;
-                    // segment.sprite.setTexture(snake.bodyAngleTexture);
-                    UpdateSnakeSegmentRotation(segment);
-                    segment.turnPoints.pop();
-                }
-            }
-
-            MoveSnakeSegment(segment, position, snake.speed, deltaTime);
+            TurnSnakeSegment(segment, position, computedDistance);
+            MoveSnakeSegment(segment, position, computedDistance);
             UpdateSnakeSegmentCoord(segment, position);
         }
     }
