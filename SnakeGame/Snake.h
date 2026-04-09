@@ -11,6 +11,7 @@ namespace SnakeGame
     {
         sf::Vector2f position;
         DirectionTurn direction;
+        sf::RectangleShape shape;
     };
 
     struct SnakeSegment
@@ -18,24 +19,27 @@ namespace SnakeGame
         Direction direction;
         sf::Vector2u coord;
         sf::Sprite sprite;
-        std::queue<TurnPoint> turnPoints;
     };
 
     struct Snake
     {
         std::vector<SnakeSegment> segments;
         sf::Texture headTexture, bodyTexture, bodyAngleTexture, tailTexture;
+        std::vector<TurnPoint> turnPoints;
         float speed = 100.f;
         // float segmentSize; /* ? */
     };
+
+    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& newDirection);
+    void DrawTurnPoints(sf::RenderWindow& window, const Snake& snake);
 
     SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture);
     bool HasHeadSegmentOppositeDirection(const SnakeSegment& segment, Direction direction);
     void TryChangeHeadSegmentDirection(Snake& snake, Direction newDirection);
     void MoveSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance);
-    void TurnSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance);
+    // void TurnSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance);
     void SetSnakeSegmentCenterPosition(SnakeSegment& segment);
-    void AddTurnPointsIntoSnakeSegments(Snake& snake, const TurnPoint& turnPoint);
+    // void AddTurnPointsIntoSnakeSegments(Snake& snake, const TurnPoint& turnPoint);
     void UpdateSnakeSegmentCoord(SnakeSegment& segment, const sf::Vector2f& position);
     void UpdateSnakeSegmentRotation(SnakeSegment& segment);
 

@@ -5,6 +5,29 @@
 
 namespace SnakeGame
 {
+    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& newDirection)
+    {
+        TurnPoint turnPoint;
+        turnPoint.position = segment.sprite.getPosition();
+        const float newPosX = turnPoint.position.x - CELL_WIDTH / 2.f;
+        const float newPosY = turnPoint.position.y - CELL_HEIGHT / 2.f;
+        turnPoint.shape.setPosition(newPosX, newPosY);
+        turnPoint.shape.setOrigin(0.5f, 0.5f);
+        turnPoint.shape.setSize({CELL_WIDTH, CELL_HEIGHT});
+        turnPoint.shape.setFillColor(sf::Color::Black);
+        turnPoint.direction = {segment.direction, newDirection};
+
+        return turnPoint;
+    }
+
+    void DrawTurnPoints(sf::RenderWindow& window, const Snake& snake)
+    {
+        for (auto& turnPoint : snake.turnPoints)
+        {
+            window.draw(turnPoint.shape);
+        }
+    }
+
     SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture)
     {
         SnakeSegment segment;
@@ -44,10 +67,7 @@ namespace SnakeGame
                 SetSnakeSegmentCenterPosition(segment);
             }
 
-            TurnPoint turnPoint;
-            turnPoint.position = headSegment.sprite.getPosition();
-            turnPoint.direction = {headSegment.direction, newDirection};
-            AddTurnPointsIntoSnakeSegments(snake, turnPoint);
+            snake.turnPoints.push_back(CreateTurnPoint(headSegment, newDirection));
         }
     }
 
@@ -74,41 +94,11 @@ namespace SnakeGame
         }
     }
 
-    void TurnSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance)
-    {
-        if (!segment.turnPoints.empty())
-        {
-            const TurnPoint& turnPoint = segment.turnPoints.front();
-            
-            const float dx = position.x - turnPoint.position.x;
-            const float dy = position.y - turnPoint.position.y;
-            const float dist = std::sqrt(dx * dx + dy * dy);
-
-            if (dist < distance)
-            {
-                position = turnPoint.position;
-                segment.direction = turnPoint.direction.to;
-                UpdateSnakeSegmentRotation(segment);
-                segment.turnPoints.pop();
-            }
-        }
-    }
-
     void SetSnakeSegmentCenterPosition(SnakeSegment& segment)
     {
         const float centredPositionX = (segment.coord.x * CELL_WIDTH) + CELL_WIDTH / 2.f;
         const float centredPositionY = (segment.coord.y * CELL_HEIGHT) + CELL_HEIGHT / 2.f;
         segment.sprite.setPosition(centredPositionX, centredPositionY);
-    }
-
-    void AddTurnPointsIntoSnakeSegments(Snake& snake, const TurnPoint& turnPoint)
-    {
-        /* skip head-segment */
-        for (unsigned i = 1; i < snake.segments.size(); ++i)
-        {
-            SnakeSegment& segment = snake.segments[i];
-            segment.turnPoints.push(turnPoint);
-        }
     }
 
     void UpdateSnakeSegmentCoord(SnakeSegment& segment, const sf::Vector2f& position)
@@ -185,7 +175,27 @@ namespace SnakeGame
             SnakeSegment& segment = snake.segments[i];
             sf::Vector2f position = segment.sprite.getPosition();
 
-            TurnSnakeSegment(segment, position, computedDistance);
+            if (!snake.turnPoints.empty())
+            {
+                const TurnPoint& turnPoint = snake.turnPoints.front();
+
+                const float dx = position.x - turnPoint.position.x;
+                const float dy = position.y - turnPoint.position.y;
+                const float dist = std::sqrt(dx * dx + dy * dy);
+
+                if (dist < computedDistance)
+                {
+                    // position = turnPoint.position;
+                    segment.direction = turnPoint.direction.to;
+                    UpdateSnakeSegmentRotation(segment);
+
+                    if (i == snake.segments.size() - 1)
+                    {
+                        snake.turnPoints.erase(snake.turnPoints.begin());
+                    }
+                }
+            }
+
             MoveSnakeSegment(segment, position, computedDistance);
             UpdateSnakeSegmentCoord(segment, position);
         }
