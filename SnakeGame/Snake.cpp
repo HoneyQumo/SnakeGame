@@ -47,11 +47,6 @@ namespace SnakeGame
             TurnPoint turnPoint;
             turnPoint.position = headSegment.sprite.getPosition();
             turnPoint.direction = {headSegment.direction, newDirection};
-            turnPoint.sprite.setTexture(snake.bodyAngleTexture);
-            turnPoint.sprite.setPosition(headSegment.sprite.getPosition());
-            SetSpriteSize(turnPoint.sprite, CELL_WIDTH, CELL_HEIGHT);
-            SetSpriteOrigin(turnPoint.sprite, 0.5f, 0.5f);
-            
             AddTurnPointsIntoSnakeSegments(snake, turnPoint);
         }
     }
