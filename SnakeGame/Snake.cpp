@@ -10,18 +10,19 @@ namespace SnakeGame
         TurnPoint turnPoint;
         turnPoint.position = segment.sprite.getPosition();
         turnPoint.direction = direction;
-        
+
         return turnPoint;
     }
 
-    void UpdateTurnPoint(SnakeSegment& segment, const sf::Vector2f& position, const float& computedDistance)
+    void UpdateTurnPoint(SnakeSegment& segment, const float& computedDistance)
     {
+        const auto& position = segment.sprite.getPosition();
         const TurnPoint& turnPoint = segment.turnPoints.front();
 
         const float dx = position.x - turnPoint.position.x;
         const float dy = position.y - turnPoint.position.y;
         const float distance = std::sqrt(dx * dx + dy * dy);
-
+        
         if (distance < computedDistance)
         {
             segment.direction = turnPoint.direction;
@@ -176,8 +177,10 @@ namespace SnakeGame
         segment.sprite.setPosition(centredPositionX, centredPositionY);
     }
 
-    void UpdateSnakeSegmentCoord(SnakeSegment& segment, const sf::Vector2f& position)
+    void UpdateSnakeSegmentCoord(SnakeSegment& segment)
     {
+        const auto& position = segment.sprite.getPosition();
+        
         switch (segment.direction)
         {
         case Direction::Up:
@@ -252,11 +255,11 @@ namespace SnakeGame
 
             if (!segment.turnPoints.empty())
             {
-                UpdateTurnPoint(segment, position, computedDistance);
+                UpdateTurnPoint(segment, computedDistance);
             }
 
             MoveSnakeSegment(segment, position, computedDistance);
-            UpdateSnakeSegmentCoord(segment, position);
+            UpdateSnakeSegmentCoord(segment);
 
             if (!snake.turnPointShapes.empty() && i == snake.segments.size() - 1)
             {
