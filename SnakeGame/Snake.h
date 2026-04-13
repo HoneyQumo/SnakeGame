@@ -11,27 +11,32 @@ namespace SnakeGame
     {
         sf::Vector2f position;
         DirectionTurn direction;
-        sf::RectangleShape shape;
     };
 
     struct SnakeSegment
     {
         Direction direction;
+        /* Todo: отказаться от coord */
         sf::Vector2u coord;
         sf::Sprite sprite;
+        std::queue<TurnPoint> turnPoints;
     };
 
     struct Snake
     {
         std::vector<SnakeSegment> segments;
         sf::Texture headTexture, bodyTexture, bodyAngleTexture, tailTexture;
-        std::vector<TurnPoint> turnPoints;
+        std::vector<sf::RectangleShape> turnPointShapes;
         float speed = 100.f;
         // float segmentSize; /* ? */
     };
 
-    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& newDirection);
-    void DrawTurnPoints(sf::RenderWindow& window, const Snake& snake);
+    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& from, const Direction& to);
+    void UpdateTurnPoint(SnakeSegment& segment, const sf::Vector2f& position, const float& computedDistance);
+    
+    sf::RectangleShape CreateTurnPointShape(const sf::Vector2f& position, const sf::Vector2f& origin);
+    void UpdateTurnPointShape(std::vector<sf::RectangleShape>& shapes, const sf::Vector2f& position);
+    void DrawTurnPointShape(sf::RenderWindow& window, const Snake& snake);
 
     SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture);
     bool HasHeadSegmentOppositeDirection(const SnakeSegment& segment, Direction direction);

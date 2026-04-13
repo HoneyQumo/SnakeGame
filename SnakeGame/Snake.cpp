@@ -5,26 +5,59 @@
 
 namespace SnakeGame
 {
-    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& newDirection)
+    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& from, const Direction& to)
     {
         TurnPoint turnPoint;
         turnPoint.position = segment.sprite.getPosition();
-        const float newPosX = turnPoint.position.x - CELL_WIDTH / 2.f;
-        const float newPosY = turnPoint.position.y - CELL_HEIGHT / 2.f;
-        turnPoint.shape.setPosition(newPosX, newPosY);
-        turnPoint.shape.setOrigin(0.5f, 0.5f);
-        turnPoint.shape.setSize({CELL_WIDTH, CELL_HEIGHT});
-        turnPoint.shape.setFillColor(sf::Color::Black);
-        turnPoint.direction = {segment.direction, newDirection};
+        turnPoint.direction = {from, to};
 
         return turnPoint;
     }
 
-    void DrawTurnPoints(sf::RenderWindow& window, const Snake& snake)
+    void UpdateTurnPoint(SnakeSegment& segment, const sf::Vector2f& position, const float& computedDistance)
     {
-        for (auto& turnPoint : snake.turnPoints)
+        const TurnPoint& turnPoint = segment.turnPoints.front();
+
+        const float dx = position.x - turnPoint.position.x;
+        const float dy = position.y - turnPoint.position.y;
+        const float distance = std::sqrt(dx * dx + dy * dy);
+
+        if (distance < computedDistance)
         {
-            window.draw(turnPoint.shape);
+            segment.direction = turnPoint.direction.to;
+            UpdateSnakeSegmentRotation(segment);
+            segment.turnPoints.pop();
+        }
+    }
+
+    sf::RectangleShape CreateTurnPointShape(const sf::Vector2f& position, const sf::Vector2f& origin)
+    {
+        sf::RectangleShape tmpShape;
+        tmpShape.setPosition(position.x, position.y);
+        tmpShape.setOrigin(origin.x, origin.y);
+        tmpShape.setSize({CELL_WIDTH, CELL_HEIGHT});
+        tmpShape.setFillColor({0, 0, 0, 100});
+
+        return tmpShape;
+    }
+    
+    void UpdateTurnPointShape(std::vector<sf::RectangleShape>& shapes, const sf::Vector2f& position)
+    {
+        auto& tpShape = shapes.front();
+        const auto tpShapePosition = tpShape.getPosition();
+        const float dx = fabs(position.x - tpShapePosition.x);
+        const float dy = fabs(position.y - tpShapePosition.y);
+        if ((dx <= CELL_WIDTH / 2.f) && (dy <= CELL_HEIGHT / 2.f))
+        {
+            shapes.erase(shapes.begin());
+        }
+    }
+    
+    void DrawTurnPointShape(sf::RenderWindow& window, const Snake& snake)
+    {
+        for (auto& shape : snake.turnPointShapes)
+        {
+            window.draw(shape);
         }
     }
 
@@ -59,15 +92,17 @@ namespace SnakeGame
 
         if (!HasHeadSegmentOppositeDirection(headSegment, newDirection))
         {
+            const auto oldDirection = headSegment.direction;
             headSegment.direction = newDirection;
             UpdateSnakeSegmentRotation(headSegment);
 
             for (auto& segment : snake.segments)
             {
                 SetSnakeSegmentCenterPosition(segment);
+                segment.turnPoints.push(CreateTurnPoint(headSegment, oldDirection, newDirection));
             }
 
-            snake.turnPoints.push_back(CreateTurnPoint(headSegment, newDirection));
+            snake.turnPointShapes.push_back(CreateTurnPointShape(headSegment.sprite.getPosition(), headSegment.sprite.getOrigin()));
         }
     }
 
@@ -175,29 +210,18 @@ namespace SnakeGame
             SnakeSegment& segment = snake.segments[i];
             sf::Vector2f position = segment.sprite.getPosition();
 
-            if (!snake.turnPoints.empty())
+            if (!segment.turnPoints.empty())
             {
-                const TurnPoint& turnPoint = snake.turnPoints.front();
-
-                const float dx = position.x - turnPoint.position.x;
-                const float dy = position.y - turnPoint.position.y;
-                const float dist = std::sqrt(dx * dx + dy * dy);
-
-                if (dist < computedDistance)
-                {
-                    // position = turnPoint.position;
-                    segment.direction = turnPoint.direction.to;
-                    UpdateSnakeSegmentRotation(segment);
-
-                    if (i == snake.segments.size() - 1)
-                    {
-                        snake.turnPoints.erase(snake.turnPoints.begin());
-                    }
-                }
+                UpdateTurnPoint(segment, position, computedDistance);
             }
 
             MoveSnakeSegment(segment, position, computedDistance);
             UpdateSnakeSegmentCoord(segment, position);
+
+            if (!snake.turnPointShapes.empty() && i == snake.segments.size() - 1)
+            {
+                UpdateTurnPointShape(snake.turnPointShapes, position);
+            }
         }
     }
 
