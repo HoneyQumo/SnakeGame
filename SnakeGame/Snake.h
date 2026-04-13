@@ -10,7 +10,7 @@ namespace SnakeGame
     struct TurnPoint
     {
         sf::Vector2f position;
-        DirectionTurn direction;
+        Direction direction;
     };
 
     struct SnakeSegment
@@ -26,17 +26,18 @@ namespace SnakeGame
     {
         std::vector<SnakeSegment> segments;
         sf::Texture headTexture, bodyTexture, bodyAngleTexture, tailTexture;
-        std::vector<sf::RectangleShape> turnPointShapes;
+        std::vector<sf::Sprite> turnPointShapes;
         float speed = 100.f;
         // float segmentSize; /* ? */
     };
 
-    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& from, const Direction& to);
+    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& direction);
     void UpdateTurnPoint(SnakeSegment& segment, const sf::Vector2f& position, const float& computedDistance);
-    
-    sf::RectangleShape CreateTurnPointShape(const sf::Vector2f& position, const sf::Vector2f& origin);
-    void UpdateTurnPointShape(std::vector<sf::RectangleShape>& shapes, const sf::Vector2f& position);
-    void DrawTurnPointShape(sf::RenderWindow& window, const Snake& snake);
+
+    sf::Sprite CreateTurnPointSprite(const sf::Texture& texture, const sf::Vector2f& position, const DirectionTurn& directionTurn);
+    void UpdateTurnPointSprite(std::vector<sf::Sprite>& shapes, const sf::Vector2f& position);
+    void SetTurnPointSpriteRotation(sf::Sprite& sprite, const DirectionTurn& directionTurn);
+    void DrawTurnPointSprite(sf::RenderWindow& window, const Snake& snake);
 
     SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture);
     bool HasHeadSegmentOppositeDirection(const SnakeSegment& segment, Direction direction);

@@ -5,12 +5,11 @@
 
 namespace SnakeGame
 {
-    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& from, const Direction& to)
+    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& direction)
     {
         TurnPoint turnPoint;
         turnPoint.position = segment.sprite.getPosition();
-        turnPoint.direction = {from, to};
-
+        turnPoint.direction = direction;
         return turnPoint;
     }
 
@@ -24,24 +23,27 @@ namespace SnakeGame
 
         if (distance < computedDistance)
         {
-            segment.direction = turnPoint.direction.to;
+            segment.direction = turnPoint.direction;
             UpdateSnakeSegmentRotation(segment);
             segment.turnPoints.pop();
         }
     }
 
-    sf::RectangleShape CreateTurnPointShape(const sf::Vector2f& position, const sf::Vector2f& origin)
+    sf::Sprite CreateTurnPointSprite(const sf::Texture& texture, const sf::Vector2f& position, const DirectionTurn& directionTurn)
     {
-        sf::RectangleShape tmpShape;
-        tmpShape.setPosition(position.x, position.y);
-        tmpShape.setOrigin(origin.x, origin.y);
-        tmpShape.setSize({CELL_WIDTH, CELL_HEIGHT});
-        tmpShape.setFillColor({0, 0, 0, 100});
+        sf::Sprite tmpSprite;
+        tmpSprite.setTexture(texture);
+        tmpSprite.setPosition(position.x, position.y);
+        tmpSprite.setColor(sf::Color::Black);
+        SetSpriteSize(tmpSprite, CELL_WIDTH, CELL_HEIGHT);
+        SetSpriteOrigin(tmpSprite, 0.5f, 0.5f);
 
-        return tmpShape;
+        // SetTurnPointSpriteRotation(tmpSprite, directionTurn);
+
+        return tmpSprite;
     }
-    
-    void UpdateTurnPointShape(std::vector<sf::RectangleShape>& shapes, const sf::Vector2f& position)
+
+    void UpdateTurnPointSprite(std::vector<sf::Sprite>& shapes, const sf::Vector2f& position)
     {
         auto& tpShape = shapes.front();
         const auto tpShapePosition = tpShape.getPosition();
@@ -52,8 +54,45 @@ namespace SnakeGame
             shapes.erase(shapes.begin());
         }
     }
-    
-    void DrawTurnPointShape(sf::RenderWindow& window, const Snake& snake)
+
+    void SetTurnPointSpriteRotation(sf::Sprite& sprite, const DirectionTurn& directionTurn)
+    {
+        const auto& from = directionTurn.from;
+        const auto& to = directionTurn.to;
+
+        auto isPair = [&](Direction d1, Direction d2)
+        {
+            return (from == d1 && to == d2) || (from == d2 && to == d1);
+        };
+
+        // if (isPair(Direction::Up, Direction::Right))
+        // {
+        //     sprite.setRotation(0.f);
+        // }
+        // else if (isPair(Direction::Up, Direction::Left))
+        // {
+        //     const auto& scale = sprite.getScale();
+        //     sprite.setRotation(90.f);
+        //     sprite.setScale(-scale.x, scale.y);
+        // }
+        // else if (isPair(Direction::Down, Direction::Right))
+        // {
+        //     const auto& scale = sprite.getScale();
+        //     sprite.setRotation(0.f);
+        //     sprite.setScale(scale.x, -scale.y);
+        // }
+        // else if (isPair(Direction::Down, Direction::Left))
+        // {
+        //     sprite.setRotation(180.f);
+        // }
+
+        if (isPair(Direction::Left, Direction::Down)) sprite.setRotation(0.f);
+        if (isPair(Direction::Left, Direction::Up)) sprite.setRotation(90.f);
+        if (isPair(Direction::Right, Direction::Up)) sprite.setRotation(180.f);
+        if (isPair(Direction::Right, Direction::Down)) sprite.setRotation(270.f);
+    }
+
+    void DrawTurnPointSprite(sf::RenderWindow& window, const Snake& snake)
     {
         for (auto& shape : snake.turnPointShapes)
         {
@@ -99,10 +138,10 @@ namespace SnakeGame
             for (auto& segment : snake.segments)
             {
                 SetSnakeSegmentCenterPosition(segment);
-                segment.turnPoints.push(CreateTurnPoint(headSegment, oldDirection, newDirection));
+                segment.turnPoints.push(CreateTurnPoint(headSegment, newDirection));
             }
 
-            snake.turnPointShapes.push_back(CreateTurnPointShape(headSegment.sprite.getPosition(), headSegment.sprite.getOrigin()));
+            snake.turnPointShapes.push_back(CreateTurnPointSprite(snake.bodyAngleTexture, headSegment.sprite.getPosition(), {oldDirection, newDirection}));
         }
     }
 
@@ -220,7 +259,7 @@ namespace SnakeGame
 
             if (!snake.turnPointShapes.empty() && i == snake.segments.size() - 1)
             {
-                UpdateTurnPointShape(snake.turnPointShapes, position);
+                UpdateTurnPointSprite(snake.turnPointShapes, position);
             }
         }
     }

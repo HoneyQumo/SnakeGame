@@ -28,6 +28,6 @@ namespace SnakeGame
     {
         DrawField(window, game.field);
         DrawSnake(window, game.snake);
-        DrawTurnPointShape(window, game.snake);
+        DrawTurnPointSprite(window, game.snake);
     }
 }
