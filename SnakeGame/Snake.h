@@ -36,7 +36,7 @@ namespace SnakeGame
 
     sf::Sprite CreateTurnPointSprite(const sf::Texture& texture, const sf::Vector2f& position, const DirectionTurn& directionTurn);
     void UpdateTurnPointSprite(std::vector<sf::Sprite>& shapes, const sf::Vector2f& position);
-    void SetTurnPointSpriteRotation(sf::Sprite& sprite, const DirectionTurn& directionTurn);
+    // void SetTurnPointSpriteRotation(sf::Sprite& sprite, const DirectionTurn& directionTurn);
     void DrawTurnPointSprite(sf::RenderWindow& window, const Snake& snake);
 
     SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture);
