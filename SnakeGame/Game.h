@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "Shared/Constants.h"
 #include "Field.h"
-#include "Snake.h"
+#include "Shared/Constants.h"
+#include "Snake/Snake.h"
 
 namespace SnakeGame
 {

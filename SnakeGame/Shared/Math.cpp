@@ -46,6 +46,14 @@ namespace SnakeGame
         };
     }
 
+    sf::Vector2i GetCoordFromPosition(const sf::Vector2f& position)
+    {
+        return sf::Vector2i{
+            static_cast<int>(position.y / CELL_HEIGHT),
+            static_cast<int>(position.x / CELL_WIDTH)
+        };
+    }
+
     float GetDistanceAlongDirection(const sf::Vector2f& from, const sf::Vector2f& to, const Direction direction)
     {
         switch (direction)
