@@ -7,6 +7,13 @@
 
 namespace SnakeGame
 {
+    enum class SegmentType
+    {
+        Head = 0,
+        Body,
+        Tail
+    };
+
     struct TurnPoint
     {
         sf::Vector2f position;
@@ -15,6 +22,7 @@ namespace SnakeGame
 
     struct SnakeSegment
     {
+        SegmentType type;
         Direction direction;
         /* Todo: отказаться от coord */
         sf::Vector2u coord;
@@ -40,10 +48,10 @@ namespace SnakeGame
     // void SetTurnPointSpriteRotation(sf::Sprite& sprite, const DirectionTurn& directionTurn);
     void DrawTurnPointSprite(sf::RenderWindow& window, const Snake& snake);
 
-    SnakeSegment CreateSnakeSegment(const sf::Vector2u& coord, const sf::Texture& texture);
+    SnakeSegment CreateSnakeSegment(const SegmentType& type, const sf::Vector2u& coord, const sf::Texture& texture);
     bool HasHeadSegmentOppositeDirection(const SnakeSegment& segment, Direction direction);
     void TryChangeHeadSegmentDirection(Snake& snake, Direction newDirection);
-    void MoveSnakeSegment(SnakeSegment& segment, sf::Vector2f& position, const float& distance);
+    void MoveSnakeSegment(SnakeSegment& segment, const float& distance);
     // void SetSnakeSegmentCenterPosition(SnakeSegment& segment);
     void UpdateSnakeSegmentCoord(SnakeSegment& segment);
     void UpdateSnakeSegmentRotation(SnakeSegment& segment);
