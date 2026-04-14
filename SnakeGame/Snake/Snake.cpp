@@ -47,11 +47,11 @@ namespace SnakeGame
 
             if (segment.type == SegmentType::Head)
             {
-                const auto from = GetCoordFromPosition(segment.sprite.getPosition());
+                const auto oldPosition = GetCoordFromPosition(segment.sprite.getPosition());
                 MoveSegment(segment, computedDistance);
-                const auto to = GetCoordFromPosition(segment.sprite.getPosition());
+                const auto newPosition = GetCoordFromPosition(segment.sprite.getPosition());
 
-                if (from != to)
+                if (oldPosition != newPosition)
                 {
                     snake.canChangeDirection = true;
                 }
