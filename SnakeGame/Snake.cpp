@@ -5,10 +5,34 @@
 
 namespace SnakeGame
 {
+    static sf::Vector2f GetNearestCellCenter(const sf::Vector2f& position)
+    {
+        const float fx = (position.x - CELL_WIDTH / 2.f) / CELL_WIDTH;
+        const float fy = (position.y - CELL_HEIGHT / 2.f) / CELL_HEIGHT;
+        const float ix = std::round(fx);
+        const float iy = std::round(fy);
+        return {
+            ix * CELL_WIDTH + CELL_WIDTH / 2.f,
+            iy * CELL_HEIGHT + CELL_HEIGHT / 2.f
+        };
+    }
+
+    static bool IsAtCellCenter(const sf::Vector2f& position, const float epsilon = 0.01f)
+    {
+        const sf::Vector2f center = GetNearestCellCenter(position);
+        return (std::abs(position.x - center.x) <= epsilon) && (std::abs(position.y - center.y) <= epsilon);
+    }
+
+    // static void SetCoordFromCenterPosition(SnakeSegment& segment, const sf::Vector2f& position)
+    // {
+    //     segment.coord.x = static_cast<unsigned>(position.x / CELL_WIDTH);
+    //     segment.coord.y = static_cast<unsigned>(position.y / CELL_HEIGHT);
+    // }
+
     TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& direction)
     {
         TurnPoint turnPoint;
-        turnPoint.position = segment.sprite.getPosition();
+        turnPoint.position = GetNearestCellCenter(segment.sprite.getPosition());
         turnPoint.direction = direction;
 
         return turnPoint;
@@ -23,7 +47,7 @@ namespace SnakeGame
         const float dy = position.y - turnPoint.position.y;
         const float distance = std::sqrt(dx * dx + dy * dy);
 
-        if (distance < computedDistance)
+        if (distance <= computedDistance)
         {
             segment.direction = turnPoint.direction;
             UpdateSnakeSegmentRotation(segment);
@@ -134,13 +158,14 @@ namespace SnakeGame
         if (!HasHeadSegmentOppositeDirection(headSegment, newDirection))
         {
             snake.canChangeDirection = false;
-            
+
             headSegment.direction = newDirection;
             UpdateSnakeSegmentRotation(headSegment);
 
             for (auto& segment : snake.segments)
             {
-                SetSnakeSegmentCenterPosition(segment);
+                // SetSnakeSegmentCenterPosition(segment);
+                segment.sprite.setPosition(GetNearestCellCenter(segment.sprite.getPosition()));
                 segment.turnPoints.push(CreateTurnPoint(headSegment, newDirection));
             }
 
@@ -270,7 +295,7 @@ namespace SnakeGame
             {
                 snake.canChangeDirection = true;
             }
-            
+
             if (!snake.turnPointShapes.empty() && i == snake.segments.size() - 1)
             {
                 UpdateTurnPointSprite(snake.turnPointShapes, position);

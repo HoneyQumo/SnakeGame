@@ -27,7 +27,7 @@ namespace SnakeGame
         std::vector<SnakeSegment> segments;
         sf::Texture headTexture, bodyTexture, bodyAngleTexture, tailTexture;
         std::vector<sf::Sprite> turnPointShapes;
-        float speed = 100.f;
+        float speed = 200.f;
         bool canChangeDirection = true;
         // float segmentSize; /* ? */
     };
