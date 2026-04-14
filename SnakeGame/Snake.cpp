@@ -29,10 +29,10 @@ namespace SnakeGame
     //     segment.coord.y = static_cast<unsigned>(position.y / CELL_HEIGHT);
     // }
 
-    TurnPoint CreateTurnPoint(const SnakeSegment& segment, const Direction& direction)
+    TurnPoint CreateTurnPoint(const sf::Vector2f& position, const Direction& direction)
     {
         TurnPoint turnPoint;
-        turnPoint.position = GetNearestCellCenter(segment.sprite.getPosition());
+        turnPoint.position = position;
         turnPoint.direction = direction;
 
         return turnPoint;
@@ -158,15 +158,17 @@ namespace SnakeGame
         if (!HasHeadSegmentOppositeDirection(headSegment, newDirection))
         {
             snake.canChangeDirection = false;
-
             headSegment.direction = newDirection;
             UpdateSnakeSegmentRotation(headSegment);
 
-            for (auto& segment : snake.segments)
+            const auto& headPositionCenter = GetNearestCellCenter(headSegment.sprite.getPosition());
+            headSegment.sprite.setPosition(headPositionCenter);
+
+            for (unsigned i = 1; i < snake.segments.size(); ++i)
             {
-                // SetSnakeSegmentCenterPosition(segment);
+                auto& segment = snake.segments[i];
                 segment.sprite.setPosition(GetNearestCellCenter(segment.sprite.getPosition()));
-                segment.turnPoints.push(CreateTurnPoint(headSegment, newDirection));
+                segment.turnPoints.push(CreateTurnPoint(headPositionCenter, newDirection));
             }
 
             // const auto oldDirection = headSegment.direction;
@@ -197,12 +199,12 @@ namespace SnakeGame
         }
     }
 
-    void SetSnakeSegmentCenterPosition(SnakeSegment& segment)
-    {
-        const float centredPositionX = (segment.coord.x * CELL_WIDTH) + CELL_WIDTH / 2.f;
-        const float centredPositionY = (segment.coord.y * CELL_HEIGHT) + CELL_HEIGHT / 2.f;
-        segment.sprite.setPosition(centredPositionX, centredPositionY);
-    }
+    // void SetSnakeSegmentCenterPosition(SnakeSegment& segment)
+    // {
+    //     const float centredPositionX = (segment.coord.x * CELL_WIDTH) + CELL_WIDTH / 2.f;
+    //     const float centredPositionY = (segment.coord.y * CELL_HEIGHT) + CELL_HEIGHT / 2.f;
+    //     segment.sprite.setPosition(centredPositionX, centredPositionY);
+    // }
 
     void UpdateSnakeSegmentCoord(SnakeSegment& segment)
     {
@@ -266,7 +268,10 @@ namespace SnakeGame
     void InitSnake(Snake& snake)
     {
         snake.segments = {
-            CreateSnakeSegment({4, 10}, snake.headTexture),
+            CreateSnakeSegment({7, 10}, snake.headTexture),
+            CreateSnakeSegment({6, 10}, snake.bodyTexture),
+            CreateSnakeSegment({5, 10}, snake.bodyTexture),
+            CreateSnakeSegment({4, 10}, snake.bodyTexture),
             CreateSnakeSegment({3, 10}, snake.bodyTexture),
             CreateSnakeSegment({2, 10}, snake.bodyTexture),
             CreateSnakeSegment({1, 10}, snake.tailTexture)
