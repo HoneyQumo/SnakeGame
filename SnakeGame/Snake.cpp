@@ -22,7 +22,7 @@ namespace SnakeGame
         const float dx = position.x - turnPoint.position.x;
         const float dy = position.y - turnPoint.position.y;
         const float distance = std::sqrt(dx * dx + dy * dy);
-        
+
         if (distance < computedDistance)
         {
             segment.direction = turnPoint.direction;
@@ -133,7 +133,8 @@ namespace SnakeGame
 
         if (!HasHeadSegmentOppositeDirection(headSegment, newDirection))
         {
-            const auto oldDirection = headSegment.direction;
+            snake.canChangeDirection = false;
+            
             headSegment.direction = newDirection;
             UpdateSnakeSegmentRotation(headSegment);
 
@@ -143,6 +144,7 @@ namespace SnakeGame
                 segment.turnPoints.push(CreateTurnPoint(headSegment, newDirection));
             }
 
+            // const auto oldDirection = headSegment.direction;
             // snake.turnPointShapes.push_back(CreateTurnPointSprite(snake.bodyAngleTexture, headSegment.sprite.getPosition(), {oldDirection, newDirection}));
         }
     }
@@ -180,7 +182,7 @@ namespace SnakeGame
     void UpdateSnakeSegmentCoord(SnakeSegment& segment)
     {
         const auto& position = segment.sprite.getPosition();
-        
+
         switch (segment.direction)
         {
         case Direction::Up:
@@ -216,6 +218,8 @@ namespace SnakeGame
 
     void SnakeKeyboardHandler(Snake& snake)
     {
+        if (!snake.canChangeDirection) return;
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
             TryChangeHeadSegmentDirection(snake, Direction::Up);
@@ -224,7 +228,7 @@ namespace SnakeGame
         {
             TryChangeHeadSegmentDirection(snake, Direction::Down);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
             TryChangeHeadSegmentDirection(snake, Direction::Right);
         }
@@ -252,6 +256,7 @@ namespace SnakeGame
         {
             SnakeSegment& segment = snake.segments[i];
             sf::Vector2f position = segment.sprite.getPosition();
+            const auto oldCoord = segment.coord;
 
             if (!segment.turnPoints.empty())
             {
@@ -261,6 +266,11 @@ namespace SnakeGame
             MoveSnakeSegment(segment, position, computedDistance);
             UpdateSnakeSegmentCoord(segment);
 
+            if (i == 0 && oldCoord != segment.coord)
+            {
+                snake.canChangeDirection = true;
+            }
+            
             if (!snake.turnPointShapes.empty() && i == snake.segments.size() - 1)
             {
                 UpdateTurnPointSprite(snake.turnPointShapes, position);
