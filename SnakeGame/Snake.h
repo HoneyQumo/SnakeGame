@@ -40,19 +40,18 @@ namespace SnakeGame
         // float segmentSize; /* ? */
     };
 
+
     TurnPoint CreateTurnPoint(const sf::Vector2f& position, const Direction& direction);
-    void UpdateTurnPoint(SnakeSegment& segment, const float& computedDistance);
 
     sf::Sprite CreateTurnPointSprite(const sf::Texture& texture, const sf::Vector2f& position, const DirectionTurn& directionTurn);
     void UpdateTurnPointSprite(std::vector<sf::Sprite>& shapes, const sf::Vector2f& position);
-    // void SetTurnPointSpriteRotation(sf::Sprite& sprite, const DirectionTurn& directionTurn);
     void DrawTurnPointSprite(sf::RenderWindow& window, const Snake& snake);
 
     SnakeSegment CreateSnakeSegment(const SegmentType& type, const sf::Vector2u& coord, const sf::Texture& texture);
     bool HasHeadSegmentOppositeDirection(const SnakeSegment& segment, Direction direction);
     void TryChangeHeadSegmentDirection(Snake& snake, Direction newDirection);
     void MoveSnakeSegment(SnakeSegment& segment, const float& distance);
-    // void SetSnakeSegmentCenterPosition(SnakeSegment& segment);
+    void MoveSnakeSegmentWithTurnPoints(SnakeSegment& segment, float distance);
     void UpdateSnakeSegmentCoord(SnakeSegment& segment);
     void UpdateSnakeSegmentRotation(SnakeSegment& segment);
 

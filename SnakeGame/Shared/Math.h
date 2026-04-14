@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "SFML/Graphics.hpp"
+#include "Constants.h"
+#include "Direction.h"
 
 namespace SnakeGame
 {
@@ -9,4 +11,10 @@ namespace SnakeGame
     void SetSpriteOrigin(sf::Sprite& sprite, float originX, float originY);
 
     bool IsRectangleCollide(const sf::Vector2f& position1, const sf::Vector2f& size1, const sf::Vector2f& position2, const sf::Vector2f& size2);
+
+    sf::Vector2f GetNearestCenter(const sf::Vector2f& position);
+
+    float GetDistanceAlongDirection(const sf::Vector2f& from, const sf::Vector2f& to, Direction direction);
+
+    bool WillCrossPoint(const sf::Vector2f& from, const sf::Vector2f& to, const sf::Vector2f& point, Direction direction);
 }

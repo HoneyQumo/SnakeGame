@@ -22,6 +22,7 @@ namespace SnakeGame
 
     /* General */
     constexpr unsigned int TIMEOUT_BEFORE_RESTART_IN_SECONDS = 2;
+    constexpr float EPSILON = 0.01f;
 
     /* Field */
     constexpr unsigned NUMBER_CELLS = 20;
