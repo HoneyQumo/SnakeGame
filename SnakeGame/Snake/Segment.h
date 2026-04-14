@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include <queue>
-#include "./Snake.h"
+#include "SFML/Graphics.hpp"
+#include "./TurnPoint.h"
+#include "../Shared/Direction.h"
+#include "../Shared/Math.h"
 
 namespace SnakeGame
 {
@@ -23,6 +26,8 @@ namespace SnakeGame
     Segment CreateSegment(const SegmentType& type, const sf::Vector2u& coord, const sf::Texture& texture);
 
     bool HasHeadSegmentOppositeDirection(const Segment& segment, Direction direction);
+
+    struct Snake;
     void TryChangeHeadSegmentDirection(Snake& snake, Direction newDirection);
 
     void MoveSegment(Segment& segment, const float& distance);

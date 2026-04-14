@@ -1,5 +1,8 @@
 ﻿#pragma once
-#include "./Snake.h"
+#include <vector>
+#include "SFML/Graphics.hpp"
+#include "../Shared/Direction.h"
+#include "../Shared/Math.h"
 
 namespace SnakeGame
 {
@@ -14,5 +17,7 @@ namespace SnakeGame
     /* Sprite */
     sf::Sprite CreateTurnPointSprite(const sf::Texture& texture, const sf::Vector2f& position, const DirectionTurn& directionTurn);
     void UpdateTurnPointSprite(std::vector<sf::Sprite>& shapes, const sf::Vector2f& position);
+
+    struct Snake;
     void DrawTurnPointSprite(sf::RenderWindow& window, const Snake& snake);
 }

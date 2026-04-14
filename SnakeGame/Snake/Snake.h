@@ -2,8 +2,6 @@
 #include "SFML/Graphics.hpp"
 #include "Segment.h"
 #include "TurnPoint.h"
-#include "../Shared/Direction.h"
-#include "../Shared/Math.h"
 
 namespace SnakeGame
 {

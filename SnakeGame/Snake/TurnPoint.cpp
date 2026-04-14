@@ -1,4 +1,5 @@
 ﻿#include "TurnPoint.h"
+#include "Snake.h"
 
 namespace SnakeGame
 {

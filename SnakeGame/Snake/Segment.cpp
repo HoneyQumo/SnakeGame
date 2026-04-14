@@ -1,4 +1,5 @@
 ﻿#include "Segment.h"
+#include "Snake.h"
 
 namespace SnakeGame
 {
