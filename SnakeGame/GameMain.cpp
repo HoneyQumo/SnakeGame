@@ -24,7 +24,58 @@ int main()
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
                 window.close();
+                break;
+            }
+
+            if (event.type == sf::Event::KeyPressed)
+            {
+                const auto& gameState = GetCurrentGameState(game);
+
+                switch (event.key.code)
+                {
+                case sf::Keyboard::Escape:
+                    switch (gameState)
+                    {
+                    case GameState::MainMenu:
+                        window.close();
+                        break;
+                    case GameState::Playing:
+                        PushGameState(game, GameState::Pause);
+                        break;
+                    case GameState::Pause:
+                        PopGameState(game);
+                        break;
+                    }
+                    break;
+
+                case sf::Keyboard::P:
+                    switch (gameState)
+                    {
+                    case GameState::Playing:
+                        PushGameState(game, GameState::Pause);
+                        break;
+                    case GameState::Pause:
+                        PopGameState(game);
+                        break;
+                    }
+                    break;
+                }
+            }
+
+            if (GetCurrentGameState(game) == GameState::MainMenu)
+            {
+                MainMenuKeyboardHandler(window, event, game);
+            }
+            // else if (GetCurrentGameState(game) == GameState::Settings)
+            // {
+            //     SettingsKeyboardHandler(event, game);
+            // }
+            // else if (GetCurrentGameState(game) == GameState::Pause)
+            // {
+            //     PauseKeyboardHandler(window, event, game);
+            // }
         }
 
         UpdateGame(game, deltaTime);

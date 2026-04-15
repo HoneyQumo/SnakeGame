@@ -3,28 +3,112 @@
 
 namespace SnakeGame
 {
-    void InitGame(Game& game)
+    void ResetGameState(Game& game)
     {
-        assert(game.snake.headTexture.loadFromFile(RESOURCES_GRAPHICS + "\\head_right.png"));
-        assert(game.snake.bodyTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_horizontal.png"));
-        assert(game.snake.bodyAngleTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_bottomright.png"));
-        assert(game.snake.tailTexture.loadFromFile(RESOURCES_GRAPHICS + "\\tail_left.png"));
+        SwitchGameState(game, GameState::MainMenu);
+    }
+
+    void PushGameState(Game& game, const GameState& state)
+    {
+        game.gameStateStack.push(state);
+    }
+
+    void PopGameState(Game& game)
+    {
+        if (game.gameStateStack.size() != 1)
+        {
+            game.gameStateStack.pop();
+        }
+    }
+
+    void SwitchGameState(Game& game, const GameState& state)
+    {
+        while (!game.gameStateStack.empty())
+        {
+            game.gameStateStack.pop();
+        }
+
+        PushGameState(game, state);
+    }
+
+    GameState GetCurrentGameState(const Game& game)
+    {
+        if (!game.gameStateStack.empty())
+        {
+            return game.gameStateStack.top();
+        }
+
+        return GameState::MainMenu;
+    }
+
+    void ResetGame(Game& game)
+    {
+        ResetGameState(game);
+
+        InitMainMenu(game);
 
         InitField(game.field);
         InitSnake(game.snake);
     }
 
+    void InitGame(Game& game)
+    {
+        /* Fonts */
+        assert(game.font.loadFromFile(RESOURCES_FONTS + "\\Roboto-Regular.ttf"));
+
+        /* Graphics */
+        assert(game.snake.headTexture.loadFromFile(RESOURCES_GRAPHICS + "\\head_right.png"));
+        assert(game.snake.bodyTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_horizontal.png"));
+        assert(game.snake.bodyAngleTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_bottomright.png"));
+        assert(game.snake.tailTexture.loadFromFile(RESOURCES_GRAPHICS + "\\tail_left.png"));
+
+        ResetGame(game);
+    }
+
 
     void UpdateGame(Game& game, const float& deltaTime)
     {
-        SnakeControl(game.snake);
-        UpdateSnake(game.snake, deltaTime);
+        const auto& gameState = GetCurrentGameState(game);
+
+        switch (gameState)
+        {
+        case GameState::MainMenu:
+            break;
+        case GameState::Playing:
+            SnakeControl(game.snake);
+            UpdateSnake(game.snake, deltaTime);
+
+            break;
+
+        case GameState::Pause:
+        case GameState::DifficultyLevel:
+        case GameState::Settings:
+        case GameState::Leaderboard:
+            break;
+        }
     }
 
     void DrawGame(sf::RenderWindow& window, const Game& game)
     {
-        DrawField(window, game.field);
-        DrawSnake(window, game.snake);
-        DrawTurnPointSprite(window, game.snake);
+        const auto& gameState = GetCurrentGameState(game);
+
+        switch (gameState)
+        {
+        case GameState::MainMenu:
+            DrawMainMenu(window, game.GUI.mainMenu);
+
+            break;
+        case GameState::Playing:
+            DrawField(window, game.field);
+            DrawSnake(window, game.snake);
+            DrawTurnPointSprite(window, game.snake);
+            break;
+
+        case GameState::Pause:
+        case GameState::DifficultyLevel:
+        case GameState::Settings:
+        case GameState::Leaderboard:
+            break;
+        }
     }
 }

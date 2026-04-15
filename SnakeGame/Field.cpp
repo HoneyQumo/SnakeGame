@@ -16,7 +16,7 @@ namespace SnakeGame
                 field.gridTexture.draw(cell.shape);
             }
         }
-        field.gridTexture.display();
+
         field.gridSprite.setTexture(field.gridTexture.getTexture());
     }
 

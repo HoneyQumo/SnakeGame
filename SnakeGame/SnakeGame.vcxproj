@@ -162,6 +162,8 @@
         <ClCompile Include="Field.cpp"/>
         <ClCompile Include="Game.cpp"/>
         <ClCompile Include="GameMain.cpp"/>
+        <ClCompile Include="GUI\GUI.cpp"/>
+        <ClCompile Include="GUI\MainMenu.cpp"/>
         <ClCompile Include="Shared\Constants.cpp">
             <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
             <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -317,6 +319,7 @@
             <AdditionalIncludeDirectories>F:\XyzSchool\cpp-course\SnakeGame\\SFML\SFML-2.5.1\include;</AdditionalIncludeDirectories>
             <LinkCompiled>true</LinkCompiled>
         </ClCompile>
+        <ClCompile Include="Shared\Shared.cpp"/>
         <ClCompile Include="Snake\Segment.cpp"/>
         <ClCompile Include="Snake\Snake.cpp">
             <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
@@ -401,9 +404,12 @@
         <ClInclude Include="Cell.h"/>
         <ClInclude Include="Field.h"/>
         <ClInclude Include="Game.h"/>
+        <ClInclude Include="GUI\GUI.h"/>
+        <ClInclude Include="GUI\MainMenu.h"/>
         <ClInclude Include="Shared\Constants.h"/>
         <ClInclude Include="Shared\Direction.h"/>
         <ClInclude Include="Shared\Math.h"/>
+        <ClInclude Include="Shared\Shared.h"/>
         <ClInclude Include="Snake\Segment.h"/>
         <ClInclude Include="Snake\Snake.h"/>
         <ClInclude Include="Snake\TurnPoint.h"/>
