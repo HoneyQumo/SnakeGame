@@ -53,6 +53,7 @@ namespace SnakeGame
             PopGameState(game);
             break;
         case PauseMenuOptionKey::Exit:
+            ResetGame(game);
             SwitchGameState(game, GameState::MainMenu);
             break;
         }
