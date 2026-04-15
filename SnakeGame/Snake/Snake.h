@@ -10,7 +10,7 @@ namespace SnakeGame
         std::vector<Segment> segments;
         sf::Texture headTexture, bodyTexture, bodyAngleTexture, tailTexture;
         std::vector<sf::Sprite> turnPointSprite;
-        float speed = 300.f;
+        float speed = 7 * ((CELL_WIDTH + CELL_HEIGHT) / 2.f);
         bool canChangeDirection = true;
     };
 
