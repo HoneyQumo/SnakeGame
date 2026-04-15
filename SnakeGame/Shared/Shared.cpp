@@ -43,4 +43,19 @@ namespace SnakeGame
 
         it->second.textNode.setFillColor(sf::Color::White);
     }
+    
+    template <typename TOptions, typename TKey>
+    static void SetOptionKey(TOptions& options, TKey& oldKey, const TKey& newKey)
+    {
+        if (options.empty()) return;
+
+        const auto it = options.find(newKey);
+        if (it == options.end()) return;
+
+        oldKey = newKey;
+        for (auto& option : options)
+        {
+            option.second.textNode.setFillColor(option.first == newKey ? sf::Color::Green : sf::Color::White);
+        }
+    }
 }

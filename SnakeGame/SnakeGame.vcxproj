@@ -164,6 +164,7 @@
         <ClCompile Include="GameMain.cpp"/>
         <ClCompile Include="GUI\GUI.cpp"/>
         <ClCompile Include="GUI\MainMenu.cpp"/>
+        <ClCompile Include="GUI\PauseMenu.cpp"/>
         <ClCompile Include="Shared\Constants.cpp">
             <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
             <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -406,6 +407,7 @@
         <ClInclude Include="Game.h"/>
         <ClInclude Include="GUI\GUI.h"/>
         <ClInclude Include="GUI\MainMenu.h"/>
+        <ClInclude Include="GUI\PauseMenu.h"/>
         <ClInclude Include="Shared\Constants.h"/>
         <ClInclude Include="Shared\Direction.h"/>
         <ClInclude Include="Shared\Math.h"/>

@@ -5,6 +5,7 @@
 
 namespace SnakeGame
 {
+
     struct MenuOption
     {
         std::wstring title;

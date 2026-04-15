@@ -46,6 +46,7 @@ namespace SnakeGame
         ResetGameState(game);
 
         InitMainMenu(game);
+        InitPauseMenu(game);
 
         InitField(game.field);
         InitSnake(game.snake);
@@ -105,6 +106,14 @@ namespace SnakeGame
             break;
 
         case GameState::Pause:
+            // if (game.GUI.pauseMenu.heading.getString().isEmpty())
+            // {
+            //     InitPauseMenu(game);
+            // }
+            
+            DrawPauseMenu(window, game.GUI.pauseMenu);
+
+            break;
         case GameState::DifficultyLevel:
         case GameState::Settings:
         case GameState::Leaderboard:

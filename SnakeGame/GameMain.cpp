@@ -42,7 +42,8 @@ int main()
                         window.close();
                         break;
                     case GameState::Playing:
-                        PushGameState(game, GameState::MainMenu);
+                        ResetPauseMenu(game.GUI.pauseMenu);
+                        PushGameState(game, GameState::Pause);
                         break;
                     case GameState::Pause:
                         PopGameState(game);
@@ -54,6 +55,7 @@ int main()
                     switch (gameState)
                     {
                     case GameState::Playing:
+                        ResetPauseMenu(game.GUI.pauseMenu);
                         PushGameState(game, GameState::Pause);
                         break;
                     case GameState::Pause:
@@ -72,10 +74,10 @@ int main()
             // {
             //     SettingsKeyboardHandler(event, game);
             // }
-            // else if (GetCurrentGameState(game) == GameState::Pause)
-            // {
-            //     PauseKeyboardHandler(window, event, game);
-            // }
+            else if (GetCurrentGameState(game) == GameState::Pause)
+            {
+                PauseMenuKeyboardHandler(event, game);
+            }
         }
 
         UpdateGame(game, deltaTime);
