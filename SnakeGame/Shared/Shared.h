@@ -7,7 +7,7 @@ namespace SnakeGame
 {
     struct MenuOption
     {
-        std::string title;
+        std::wstring title;
         sf::Text textNode;
     };
 

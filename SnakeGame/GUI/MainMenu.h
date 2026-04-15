@@ -11,6 +11,7 @@ namespace SnakeGame
     enum class MainMenuOptionKey
     {
         StartGame = 0,
+        DifficultyLevel,
         Leaderboard,
         Settings,
         Exit
@@ -18,16 +19,17 @@ namespace SnakeGame
 
     struct MainMenu
     {
+        sf::Text heading;
+
         std::map<MainMenuOptionKey, MenuOption> options = {
-            {MainMenuOptionKey::StartGame, {"Start Game", {}}},
-            {MainMenuOptionKey::Leaderboard, {"Leaderboard", {}}},
-            {MainMenuOptionKey::Settings, {"Settings", {}}},
-            {MainMenuOptionKey::Exit, {"Exit", {}}},
+            {MainMenuOptionKey::StartGame, {L"Начать игру", {}}},
+            {MainMenuOptionKey::DifficultyLevel, {L"Уровень сложности", {}}},
+            {MainMenuOptionKey::Leaderboard, {L"Таблица рекордов", {}}},
+            {MainMenuOptionKey::Settings, {L"Настройки", {}}},
+            {MainMenuOptionKey::Exit, {L"Выход", {}}},
         };
 
         MainMenuOptionKey selectedOptionKey = MainMenuOptionKey::StartGame;
-
-        sf::Text heading;
     };
 
     struct Game;

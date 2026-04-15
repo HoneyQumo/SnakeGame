@@ -42,7 +42,7 @@ int main()
                         window.close();
                         break;
                     case GameState::Playing:
-                        PushGameState(game, GameState::Pause);
+                        PushGameState(game, GameState::MainMenu);
                         break;
                     case GameState::Pause:
                         PopGameState(game);

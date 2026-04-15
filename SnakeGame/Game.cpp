@@ -54,7 +54,7 @@ namespace SnakeGame
     void InitGame(Game& game)
     {
         /* Fonts */
-        assert(game.font.loadFromFile(RESOURCES_FONTS + "\\Roboto-Regular.ttf"));
+        assert(game.font.loadFromFile(RESOURCES_FONTS + "\\AtariTetrisArcade-Regular.otf"));
 
         /* Graphics */
         assert(game.snake.headTexture.loadFromFile(RESOURCES_GRAPHICS + "\\head_right.png"));
