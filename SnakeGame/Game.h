@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <stack>
 #include "Field.h"
+#include "DifficultyLevel.h"
 #include "GUI/GUI.h"
 #include "Shared/Constants.h"
 #include "Snake/Snake.h"
@@ -25,6 +26,9 @@ namespace SnakeGame
 
         Field field;
         Snake snake;
+
+        DifficultyLevel difficulty;
+
         std::stack<GameState> gameStateStack;
     };
 

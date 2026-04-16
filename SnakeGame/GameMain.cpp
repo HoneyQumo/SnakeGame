@@ -48,7 +48,14 @@ int main()
                     case GameState::Pause:
                         PopGameState(game);
                         break;
+                    default:
+                        PopGameState(game);
+                        break;
                     }
+                    break;
+
+                case sf::Keyboard::Backspace:
+                    PopGameState(game);
                     break;
 
                 case sf::Keyboard::P:
@@ -66,17 +73,22 @@ int main()
                 }
             }
 
-            if (GetCurrentGameState(game) == GameState::MainMenu)
+            const auto& gameState = GetCurrentGameState(game);
+            switch (gameState)
             {
-                MainMenuKeyboardHandler(window, event, game);
-            }
-            // else if (GetCurrentGameState(game) == GameState::Settings)
-            // {
-            //     SettingsKeyboardHandler(event, game);
-            // }
-            else if (GetCurrentGameState(game) == GameState::Pause)
-            {
+            // case GameState::Playing:
+            case GameState::Pause:
                 PauseMenuKeyboardHandler(event, game);
+                break;
+            case GameState::MainMenu:
+                MainMenuKeyboardHandler(window, event, game);
+                break;
+            case GameState::DifficultyLevel:
+                DifficultyLevelMenuKeyboardHandler(event, game);
+                break;
+            case GameState::Settings:
+            case GameState::Leaderboard:
+                break;
             }
         }
 

@@ -28,6 +28,7 @@ namespace SnakeGame
     constexpr unsigned NUMBER_CELLS = 20;
     constexpr unsigned CELL_WIDTH = SCREEN_WIDTH / NUMBER_CELLS;
     constexpr unsigned CELL_HEIGHT = SCREEN_HEIGHT / NUMBER_CELLS;
+    constexpr float AVERAGE_CELL_SIZE = (CELL_WIDTH + CELL_HEIGHT) / 2.f;
     const auto LIGHT_GREEN_COLOR = sf::Color(170, 215, 81, 255);
     const auto DARK_GREEN_COLOR = sf::Color(162, 209, 73, 255);
 }

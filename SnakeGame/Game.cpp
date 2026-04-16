@@ -45,9 +45,12 @@ namespace SnakeGame
     {
         ResetGameState(game);
 
+        /* GUI */
         InitMainMenu(game);
         InitPauseMenu(game);
+        InitDifficultyLevelMenu(game);
 
+        /* Game Instances */
         InitField(game.field);
         InitSnake(game.snake);
     }
@@ -55,13 +58,15 @@ namespace SnakeGame
     void InitGame(Game& game)
     {
         /* Fonts */
-        assert(game.font.loadFromFile(RESOURCES_FONTS + "\\AtariTetrisArcade-Regular.otf"));
+        assert(game.font.loadFromFile(RESOURCES_FONTS + "\\pixel_font-7.ttf"));
 
         /* Graphics */
         assert(game.snake.headTexture.loadFromFile(RESOURCES_GRAPHICS + "\\head_right.png"));
         assert(game.snake.bodyTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_horizontal.png"));
         assert(game.snake.bodyAngleTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_bottomright.png"));
         assert(game.snake.tailTexture.loadFromFile(RESOURCES_GRAPHICS + "\\tail_left.png"));
+
+        game.difficulty = {DifficultyLevelType::Medium, LEVEL_CONFIG.at(DifficultyLevelType::Medium)};
 
         ResetGame(game);
     }
@@ -70,6 +75,7 @@ namespace SnakeGame
     void UpdateGame(Game& game, const float& deltaTime)
     {
         const auto& gameState = GetCurrentGameState(game);
+        const float computedDistance = game.difficulty.value.snakeSpeed * deltaTime;
 
         switch (gameState)
         {
@@ -77,7 +83,7 @@ namespace SnakeGame
             break;
         case GameState::Playing:
             SnakeControl(game.snake);
-            UpdateSnake(game.snake, deltaTime);
+            UpdateSnake(game.snake, computedDistance);
 
             break;
 
@@ -110,11 +116,14 @@ namespace SnakeGame
             // {
             //     InitPauseMenu(game);
             // }
-            
+
             DrawPauseMenu(window, game.GUI.pauseMenu);
 
             break;
         case GameState::DifficultyLevel:
+            DrawDifficultyLevelMenu(window, game.GUI.difficultyLevelMenu);
+
+            break;
         case GameState::Settings:
         case GameState::Leaderboard:
             break;

@@ -1,6 +1,6 @@
 ﻿#include "PauseMenu.h"
 #include "../Game.h"
-#include "../Shared/Shared.cpp"
+#include "../Shared/Shared.h"
 
 namespace SnakeGame
 {

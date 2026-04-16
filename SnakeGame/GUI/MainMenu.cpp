@@ -1,6 +1,6 @@
 ﻿// #include "MainMenu.h"
 #include "../Game.h"
-#include "../Shared/Shared.cpp"
+#include "../Shared/Shared.h"
 
 namespace SnakeGame
 {
@@ -45,7 +45,10 @@ namespace SnakeGame
         switch (game.GUI.mainMenu.selectedOptionKey)
         {
         case MainMenuOptionKey::StartGame:
-            SwitchGameState(game,GameState::Playing);
+            SwitchGameState(game, GameState::Playing);
+            break;
+        case MainMenuOptionKey::DifficultyLevel:
+            PushGameState(game, GameState::DifficultyLevel);
             break;
         case MainMenuOptionKey::Leaderboard:
             PushGameState(game, GameState::Leaderboard);
@@ -55,8 +58,6 @@ namespace SnakeGame
             break;
         case MainMenuOptionKey::Exit:
             window.close();
-            break;
-        default:
             break;
         }
     }

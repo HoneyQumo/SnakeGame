@@ -4,6 +4,8 @@ namespace SnakeGame
 {
     void InitSnake(Snake& snake)
     {
+        snake.points = 0;
+        snake.canChangeDirection = true;
         snake.segments = {
             CreateSegment(SegmentType::Head, {7, 10}, snake.headTexture),
             CreateSegment(SegmentType::Body, {6, 10}, snake.bodyTexture),
@@ -37,10 +39,8 @@ namespace SnakeGame
         }
     }
 
-    void UpdateSnake(Snake& snake, const float& deltaTime)
+    void UpdateSnake(Snake& snake, const float computedDistance)
     {
-        const float computedDistance = snake.speed * deltaTime;
-
         for (unsigned i = 0; i < snake.segments.size(); ++i)
         {
             Segment& segment = snake.segments[i];
