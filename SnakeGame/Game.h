@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <stack>
+#include "Apple.h"
 #include "Field.h"
 #include "DifficultyLevel.h"
 #include "GUI/GUI.h"
@@ -26,6 +27,7 @@ namespace SnakeGame
 
         Field field;
         Snake snake;
+        Apple apple;
 
         DifficultyLevel difficulty;
 

@@ -158,6 +158,7 @@
         </Link>
     </ItemDefinitionGroup>
     <ItemGroup>
+        <ClCompile Include="Apple.cpp"/>
         <ClCompile Include="Cell.cpp"/>
         <ClCompile Include="DifficultyLevel.cpp"/>
         <ClCompile Include="Field.cpp"/>
@@ -165,7 +166,7 @@
         <ClCompile Include="GameMain.cpp"/>
         <ClCompile Include="GUI\DifficultyLevelMenu.cpp"/>
         <ClCompile Include="GUI\GUI.cpp"/>
-        <ClCompile Include="GUI\HUD.cpp" />
+        <ClCompile Include="GUI\HUD.cpp"/>
         <ClCompile Include="GUI\MainMenu.cpp"/>
         <ClCompile Include="GUI\PauseMenu.cpp"/>
         <ClCompile Include="Shared\Constants.cpp">
@@ -405,13 +406,14 @@
         <ClCompile Include="Snake\TurnPoint.cpp"/>
     </ItemGroup>
     <ItemGroup>
+        <ClInclude Include="Apple.h"/>
         <ClInclude Include="Cell.h"/>
         <ClInclude Include="DifficultyLevel.h"/>
         <ClInclude Include="Field.h"/>
         <ClInclude Include="Game.h"/>
         <ClInclude Include="GUI\DifficultyLevelMenu.h"/>
         <ClInclude Include="GUI\GUI.h"/>
-        <ClInclude Include="GUI\HUD.h" />
+        <ClInclude Include="GUI\HUD.h"/>
         <ClInclude Include="GUI\MainMenu.h"/>
         <ClInclude Include="GUI\PauseMenu.h"/>
         <ClInclude Include="Shared\Constants.h"/>

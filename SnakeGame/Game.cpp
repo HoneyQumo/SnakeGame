@@ -49,6 +49,7 @@ namespace SnakeGame
         InitMainMenu(game);
         InitPauseMenu(game);
         InitDifficultyLevelMenu(game);
+        InitHUD(game, game.apple.texture);
 
         /* Game Instances */
         InitField(game.field);
@@ -65,6 +66,8 @@ namespace SnakeGame
         assert(game.snake.bodyTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_horizontal.png"));
         assert(game.snake.bodyAngleTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_bottomright.png"));
         assert(game.snake.tailTexture.loadFromFile(RESOURCES_GRAPHICS + "\\tail_left.png"));
+
+        assert(game.apple.texture.loadFromFile(RESOURCES_GRAPHICS + "\\apple.png"));
 
         game.difficulty = {DifficultyLevelType::Medium, LEVEL_CONFIG.at(DifficultyLevelType::Medium)};
 
@@ -106,6 +109,7 @@ namespace SnakeGame
 
             break;
         case GameState::Playing:
+            DrawHUD(window, game.GUI.HUD);
             DrawField(window, game.field);
             DrawSnake(window, game.snake);
             DrawTurnPointSprite(window, game.snake);

@@ -31,7 +31,12 @@ namespace SnakeGame
     constexpr float AVERAGE_CELL_SIZE = (CELL_WIDTH + CELL_HEIGHT) / 2.f;
     const auto LIGHT_GREEN_COLOR = sf::Color(170, 215, 81, 255);
     const auto DARK_GREEN_COLOR = sf::Color(162, 209, 73, 255);
-    
+    constexpr float APPLE_SIZE = 40.f;
+
+    /* HUD */
+    const auto HUD_BACKGROUND_COLOR = sf::Color(87, 138, 28, 255);
+    constexpr float HUD_BACKGROUND_HEIGHT = 50.f;
+
     /* Text */
     constexpr unsigned TEXT_HEADING = 60;
     constexpr unsigned TEXT_MENU_ITEM = 30;
