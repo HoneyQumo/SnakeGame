@@ -2,6 +2,7 @@
 #include "MainMenu.h"
 #include "PauseMenu.h"
 #include "DifficultyLevelMenu.h"
+#include "HUD.h"
 
 namespace SnakeGame
 {
@@ -10,5 +11,6 @@ namespace SnakeGame
         MainMenu mainMenu;
         PauseMenu pauseMenu;
         DifficultyLevelMenu difficultyLevelMenu;
+        HUD HUD;
     };
 }
