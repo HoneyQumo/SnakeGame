@@ -8,6 +8,12 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Snake Game by HoneyQumo");
 
+    sf::View defaultView(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+    sf::View HUDView(sf::FloatRect(0, 0, SCREEN_WIDTH, HUD_BACKGROUND_HEIGHT));
+
+    defaultView.setViewport(sf::FloatRect(0.f, HUD_VIEW_PERCENT, 1.f, DEFAULT_VIEW_PERCENT));
+    HUDView.setViewport(sf::FloatRect(0.f, 0.0f, 1.f, HUD_VIEW_PERCENT));
+
     Game game;
     InitGame(game);
 
@@ -95,7 +101,10 @@ int main()
         UpdateGame(game, deltaTime);
 
         window.clear();
-        DrawGame(window, game);
+
+        window.setView(defaultView);
+        DrawGame(window, HUDView, game);
+
         window.display();
     }
 

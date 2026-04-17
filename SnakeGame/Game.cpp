@@ -99,7 +99,7 @@ namespace SnakeGame
         }
     }
 
-    void DrawGame(sf::RenderWindow& window, const Game& game)
+    void DrawGame(sf::RenderWindow& window, const sf::View& HUDView, const Game& game)
     {
         const auto& gameState = GetCurrentGameState(game);
 
@@ -113,6 +113,8 @@ namespace SnakeGame
             DrawField(window, game.field);
             DrawSnake(window, game.snake);
             // DrawTurnPointSprite(window, game.snake);
+
+            window.setView(HUDView);
             DrawHUD(window, game.GUI.HUD);
             break;
 

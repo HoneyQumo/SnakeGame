@@ -13,15 +13,19 @@ namespace SnakeGame
     /* Video */
     constexpr unsigned SCREEN_WIDTH = 1000;
     constexpr unsigned SCREEN_HEIGHT = 1000;
-    constexpr float SCREEN_PADDING = 10.f;
+    // constexpr float SCREEN_PADDING = 10.f;
     constexpr float OFFSET_TOP_WINDOW_10_PERCENT = (SCREEN_HEIGHT / 100.f) * 10.f;
     constexpr float OFFSET_TOP_WINDOW_20_PERCENT = (SCREEN_HEIGHT / 100.f) * 20.f;
 
+    constexpr float HUD_BACKGROUND_HEIGHT = 50.f;
+    constexpr float HUD_VIEW_PERCENT = HUD_BACKGROUND_HEIGHT / SCREEN_HEIGHT;
+    constexpr float DEFAULT_VIEW_PERCENT = 1.f - HUD_VIEW_PERCENT;
+
     /* Audio */
-    constexpr float INITIAL_VOLUME = 25.f;
+    // constexpr float INITIAL_VOLUME = 25.f;
 
     /* General */
-    constexpr unsigned int TIMEOUT_BEFORE_RESTART_IN_SECONDS = 2;
+    // constexpr unsigned int TIMEOUT_BEFORE_RESTART_IN_SECONDS = 2;
     constexpr float EPSILON = 0.01f;
 
     /* Field */
@@ -35,7 +39,6 @@ namespace SnakeGame
 
     /* HUD */
     const auto HUD_BACKGROUND_COLOR = sf::Color(87, 138, 28, 255);
-    constexpr float HUD_BACKGROUND_HEIGHT = 50.f;
 
     /* Text */
     constexpr unsigned TEXT_HEADING = 60;

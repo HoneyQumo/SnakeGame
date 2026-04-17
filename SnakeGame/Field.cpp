@@ -17,7 +17,8 @@ namespace SnakeGame
             }
         }
 
-        field.gridSprite.setPosition(0.f, HUD_BACKGROUND_HEIGHT);
+        // field.gridSprite.setPosition(0.f, HUD_BACKGROUND_HEIGHT);
+        field.gridSprite.setPosition(0.f, 0.f);
         field.gridSprite.setTexture(field.gridTexture.getTexture());
     }
 
