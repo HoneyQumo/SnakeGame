@@ -7,9 +7,13 @@ namespace SnakeGame
     {
         sf::RectangleShape background;
         sf::Sprite appleSprite;
+
+        sf::Text score;
     };
 
+
     struct Game;
-    void InitHUD(Game& game, const sf::Texture& appleTexture);
+    void InitHUD(Game& game);
+    void UpdateHUD(Game& game);
     void DrawHUD(sf::RenderWindow& window, const HUD& HUD);
 }

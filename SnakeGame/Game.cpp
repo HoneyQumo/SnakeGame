@@ -49,7 +49,7 @@ namespace SnakeGame
         InitMainMenu(game);
         InitPauseMenu(game);
         InitDifficultyLevelMenu(game);
-        InitHUD(game, game.apple.texture);
+        InitHUD(game);
 
         /* Game Instances */
         InitField(game.field);
@@ -87,6 +87,7 @@ namespace SnakeGame
         case GameState::Playing:
             SnakeControl(game.snake);
             UpdateSnake(game.snake, computedDistance);
+            UpdateHUD(game);
 
             break;
 
@@ -109,10 +110,10 @@ namespace SnakeGame
 
             break;
         case GameState::Playing:
-            DrawHUD(window, game.GUI.HUD);
             DrawField(window, game.field);
             DrawSnake(window, game.snake);
-            DrawTurnPointSprite(window, game.snake);
+            // DrawTurnPointSprite(window, game.snake);
+            DrawHUD(window, game.GUI.HUD);
             break;
 
         case GameState::Pause:

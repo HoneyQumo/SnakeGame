@@ -29,6 +29,8 @@ namespace SnakeGame
         Snake snake;
         Apple apple;
 
+        unsigned score = 0;
+
         DifficultyLevel difficulty;
 
         std::stack<GameState> gameStateStack;
