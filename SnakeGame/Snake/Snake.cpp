@@ -1,4 +1,5 @@
 ﻿#include "Snake.h"
+#include "../Field.h"
 
 namespace SnakeGame
 {
@@ -75,5 +76,13 @@ namespace SnakeGame
         {
             window.draw(segment.sprite);
         }
+    }
+
+    bool HasSnakeCollisionWithWall(const Segment& head, const Field& field)
+    {
+        const auto coord = GetCoordFromPosition(head.sprite.getPosition());
+        const auto cell = field.cells[coord.x][coord.y];
+
+        return cell.type == CellType::Wall;
     }
 }

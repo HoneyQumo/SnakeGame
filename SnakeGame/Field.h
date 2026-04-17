@@ -9,7 +9,7 @@ namespace SnakeGame
         Cell cells[NUMBER_CELLS][NUMBER_CELLS] = {};
 
         sf::RenderTexture gridTexture;
-        sf::Sprite gridSprite;
+        // sf::Sprite gridSprite;
     };
 
     void InitField(Field& field);

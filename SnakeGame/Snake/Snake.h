@@ -15,10 +15,10 @@ namespace SnakeGame
     };
 
     void InitSnake(Snake& snake);
-
     void SnakeControl(Snake& snake);
-
     void UpdateSnake(Snake& snake, float computedDistance);
-
     void DrawSnake(sf::RenderWindow& window, const Snake& snake);
+
+    struct Field;
+    bool HasSnakeCollisionWithWall(const Segment& head, const Field& field);
 }

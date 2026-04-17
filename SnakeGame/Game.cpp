@@ -85,6 +85,12 @@ namespace SnakeGame
         case GameState::MainMenu:
             break;
         case GameState::Playing:
+
+            if (HasSnakeCollisionWithWall(game.snake.segments[0], game.field))
+            {
+                ResetGame(game);
+            }
+
             SnakeControl(game.snake);
             UpdateSnake(game.snake, computedDistance);
             UpdateHUD(game);

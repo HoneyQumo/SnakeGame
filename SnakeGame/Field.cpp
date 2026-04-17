@@ -12,18 +12,26 @@ namespace SnakeGame
             for (unsigned y = 0; y < NUMBER_CELLS; ++y)
             {
                 Cell& cell = field.cells[x][y];
-                InitCell(cell, x, y);
+                const bool IS_PERIMETER = x == 0 || x == NUMBER_CELLS - 1 || y == 0 || y == NUMBER_CELLS - 1 || (x == 5 && y == 5);
+                InitCell(cell, {x, y}, IS_PERIMETER ? CellType::Wall : CellType::Default);
                 field.gridTexture.draw(cell.shape);
             }
         }
-
-        // field.gridSprite.setPosition(0.f, HUD_BACKGROUND_HEIGHT);
-        field.gridSprite.setPosition(0.f, 0.f);
-        field.gridSprite.setTexture(field.gridTexture.getTexture());
+        
+        // field.gridSprite.setTexture(field.gridTexture.getTexture(), true);
     }
 
     void DrawField(sf::RenderWindow& window, const Field& field)
     {
-        window.draw(field.gridSprite);
+        for (auto& row : field.cells)
+        {
+            for (auto& cell : row)
+            {
+                window.draw(cell.shape);    
+            }
+            
+        }
+
+        // window.draw(field.gridSprite);
     }
 }
