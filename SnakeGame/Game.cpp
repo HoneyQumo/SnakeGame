@@ -54,6 +54,9 @@ namespace SnakeGame
         /* Game Instances */
         InitField(game.field);
         InitSnake(game.snake, game.assets);
+
+        game.score = 0;
+        game.apples.clear();
         SpawnApple(game);
     }
 
@@ -86,10 +89,13 @@ namespace SnakeGame
             break;
         case GameState::Playing:
 
+            SnakeControl(game.snake);
+            UpdateSnake(game.snake, computedDistance);
 
-            if (HasSnakeCollisionWithWall(game.snake.segments[0], game.field))
+            if (HasSnakeCollisionWithWall(game.snake.segments[0], game.field) || HasSnakeCollisionWithSelf(game.snake))
             {
                 ResetGame(game);
+                break;
             }
 
             for (unsigned int i = 0; i < game.apples.size(); ++i)
@@ -106,8 +112,6 @@ namespace SnakeGame
                 }
             }
 
-            SnakeControl(game.snake);
-            UpdateSnake(game.snake, computedDistance);
             UpdateHUD(game);
 
             break;

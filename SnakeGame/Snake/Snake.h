@@ -22,4 +22,5 @@ namespace SnakeGame
 
     struct Field;
     bool HasSnakeCollisionWithWall(const Segment& head, const Field& field);
+    bool HasSnakeCollisionWithSelf(const Snake& snake);
 }
