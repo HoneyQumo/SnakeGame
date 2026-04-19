@@ -106,6 +106,7 @@ namespace SnakeGame
                 ))
                 {
                     ++game.score;
+                    game.score += game.difficulty.value.pointsPerApple;
                     GrowSnake(game.snake, game.assets);
                     game.apples.clear();
                     SpawnApple(game);
