@@ -4,6 +4,7 @@
 #include "Field.h"
 #include "DifficultyLevel.h"
 #include "GUI/GUI.h"
+#include "Shared/Assets.h"
 #include "Shared/Constants.h"
 #include "Snake/Snake.h"
 
@@ -21,13 +22,13 @@ namespace SnakeGame
 
     struct Game
     {
-        sf::Font font;
+        Assets assets;
 
         GUI GUI;
 
         Field field;
         Snake snake;
-        Apple apple;
+        std::vector<Apple> apples;
 
         unsigned score = 0;
 

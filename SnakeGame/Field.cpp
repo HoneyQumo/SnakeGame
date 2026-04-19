@@ -1,4 +1,5 @@
 ﻿#include "Field.h"
+#include "Game.h"
 
 namespace SnakeGame
 {
@@ -17,7 +18,7 @@ namespace SnakeGame
                 field.gridTexture.draw(cell.shape);
             }
         }
-        
+
         // field.gridSprite.setTexture(field.gridTexture.getTexture(), true);
     }
 
@@ -27,11 +28,45 @@ namespace SnakeGame
         {
             for (auto& cell : row)
             {
-                window.draw(cell.shape);    
+                window.draw(cell.shape);
             }
-            
         }
 
         // window.draw(field.gridSprite);
+    }
+
+    std::vector<sf::Vector2u> GetAvailableCoords(const Game& game)
+    {
+        std::vector<sf::Vector2u> availableCells;
+        availableCells.reserve(NUMBER_CELLS * NUMBER_CELLS);
+
+        for (unsigned x = 0; x < NUMBER_CELLS; ++x)
+        {
+            for (unsigned y = 0; y < NUMBER_CELLS; ++y)
+            {
+                const sf::Vector2u currentCoord(x, y);
+
+                const auto& cell = game.field.cells[x][y];
+                if (cell.type == CellType::Wall) continue;
+
+                bool isSnake = false;
+                for (auto& segment : game.snake.segments)
+                {
+                    const auto& segmentPosition = GetCoordFromPosition(segment.sprite.getPosition());
+                    if (segmentPosition.x == currentCoord.x && segmentPosition.y == currentCoord.y)
+                    {
+                        isSnake = true;
+                        break;
+                    }
+                }
+
+                if (!isSnake)
+                {
+                    availableCells.push_back(currentCoord);
+                }
+            }
+        }
+
+        return availableCells;
     }
 }

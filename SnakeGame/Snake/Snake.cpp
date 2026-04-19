@@ -3,18 +3,18 @@
 
 namespace SnakeGame
 {
-    void InitSnake(Snake& snake)
+    void InitSnake(Snake& snake, const Assets& assets)
     {
         snake.points = 0;
         snake.canChangeDirection = true;
         snake.segments = {
-            CreateSegment(SegmentType::Head, {7, 10}, snake.headTexture),
-            CreateSegment(SegmentType::Body, {6, 10}, snake.bodyTexture),
-            CreateSegment(SegmentType::Body, {5, 10}, snake.bodyTexture),
-            CreateSegment(SegmentType::Body, {4, 10}, snake.bodyTexture),
-            CreateSegment(SegmentType::Body, {3, 10}, snake.bodyTexture),
-            CreateSegment(SegmentType::Body, {2, 10}, snake.bodyTexture),
-            CreateSegment(SegmentType::Tail, {1, 10}, snake.tailTexture)
+            CreateSegment(SegmentType::Head, {7, 10}, assets.snakeHead),
+            CreateSegment(SegmentType::Body, {6, 10}, assets.snakeBody),
+            CreateSegment(SegmentType::Body, {5, 10}, assets.snakeBody),
+            CreateSegment(SegmentType::Body, {4, 10}, assets.snakeBody),
+            CreateSegment(SegmentType::Body, {3, 10}, assets.snakeBody),
+            CreateSegment(SegmentType::Body, {2, 10}, assets.snakeBody),
+            CreateSegment(SegmentType::Tail, {1, 10}, assets.snakeTail)
         };
     }
 

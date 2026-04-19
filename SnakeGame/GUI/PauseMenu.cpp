@@ -14,7 +14,7 @@ namespace SnakeGame
         auto& pauseMenu = game.GUI.pauseMenu;
 
         pauseMenu.heading.setString("..::Pause::..");
-        pauseMenu.heading.setFont(game.font);
+        pauseMenu.heading.setFont(game.assets.font);
         pauseMenu.heading.setCharacterSize(TEXT_HEADING);
         pauseMenu.heading.setStyle(sf::Text::Underlined);
         pauseMenu.heading.setFillColor(sf::Color::White);
@@ -25,7 +25,7 @@ namespace SnakeGame
         for (auto& option : pauseMenu.options)
         {
             option.second.textNode.setString(option.second.title);
-            option.second.textNode.setFont(game.font);
+            option.second.textNode.setFont(game.assets.font);
             option.second.textNode.setCharacterSize(TEXT_MENU_ITEM);
             option.second.textNode.setFillColor(pauseMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White);
             option.second.textNode.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_20_PERCENT + (index * 30.f));

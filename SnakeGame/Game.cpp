@@ -53,21 +53,21 @@ namespace SnakeGame
 
         /* Game Instances */
         InitField(game.field);
-        InitSnake(game.snake);
+        InitSnake(game.snake, game.assets);
+        SpawnApple(game);
     }
 
     void InitGame(Game& game)
     {
         /* Fonts */
-        assert(game.font.loadFromFile(RESOURCES_FONTS + "\\pixel_font-7.ttf"));
+        assert(game.assets.font.loadFromFile(RESOURCES_FONTS + "\\pixel_font-7.ttf"));
 
         /* Graphics */
-        assert(game.snake.headTexture.loadFromFile(RESOURCES_GRAPHICS + "\\head_right.png"));
-        assert(game.snake.bodyTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_horizontal.png"));
-        assert(game.snake.bodyAngleTexture.loadFromFile(RESOURCES_GRAPHICS + "\\body_bottomright.png"));
-        assert(game.snake.tailTexture.loadFromFile(RESOURCES_GRAPHICS + "\\tail_left.png"));
-
-        assert(game.apple.texture.loadFromFile(RESOURCES_GRAPHICS + "\\apple.png"));
+        assert(game.assets.snakeHead.loadFromFile(RESOURCES_GRAPHICS + "\\head_right.png"));
+        assert(game.assets.snakeBody.loadFromFile(RESOURCES_GRAPHICS + "\\body_horizontal.png"));
+        assert(game.assets.snakeBodyAngle.loadFromFile(RESOURCES_GRAPHICS + "\\body_bottomright.png"));
+        assert(game.assets.snakeTail.loadFromFile(RESOURCES_GRAPHICS + "\\tail_left.png"));
+        assert(game.assets.apple.loadFromFile(RESOURCES_GRAPHICS + "\\apple.png"));
 
         game.difficulty = {DifficultyLevelType::Medium, LEVEL_CONFIG.at(DifficultyLevelType::Medium)};
 
@@ -86,9 +86,23 @@ namespace SnakeGame
             break;
         case GameState::Playing:
 
+
             if (HasSnakeCollisionWithWall(game.snake.segments[0], game.field))
             {
                 ResetGame(game);
+            }
+
+            for (unsigned int i = 0; i < game.apples.size(); ++i)
+            {
+                if (IsRectangleCollide(
+                    game.snake.segments[0].sprite.getPosition(), {CELL_WIDTH, CELL_HEIGHT},
+                    game.apples[i].sprite.getPosition(), {APPLE_SIZE, APPLE_SIZE}
+                ))
+                {
+                    ++game.score;
+                    game.apples.clear();
+                    SpawnApple(game);
+                }
             }
 
             SnakeControl(game.snake);
@@ -117,11 +131,13 @@ namespace SnakeGame
             break;
         case GameState::Playing:
             DrawField(window, game.field);
+            DrawApples(window, game.apples);
             DrawSnake(window, game.snake);
             // DrawTurnPointSprite(window, game.snake);
 
             window.setView(HUDView);
             DrawHUD(window, game.GUI.HUD);
+
             break;
 
         case GameState::Pause:

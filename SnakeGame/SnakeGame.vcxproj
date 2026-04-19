@@ -169,6 +169,7 @@
         <ClCompile Include="GUI\HUD.cpp"/>
         <ClCompile Include="GUI\MainMenu.cpp"/>
         <ClCompile Include="GUI\PauseMenu.cpp"/>
+        <ClCompile Include="Shared\Assets.cpp"/>
         <ClCompile Include="Shared\Constants.cpp">
             <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
             <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -416,6 +417,7 @@
         <ClInclude Include="GUI\HUD.h"/>
         <ClInclude Include="GUI\MainMenu.h"/>
         <ClInclude Include="GUI\PauseMenu.h"/>
+        <ClInclude Include="Shared\Assets.h"/>
         <ClInclude Include="Shared\Constants.h"/>
         <ClInclude Include="Shared\Direction.h"/>
         <ClInclude Include="Shared\Math.h"/>

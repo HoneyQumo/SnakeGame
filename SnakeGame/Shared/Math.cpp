@@ -1,4 +1,5 @@
 ﻿#include "Math.h"
+#include <random>
 
 namespace SnakeGame
 {
@@ -49,8 +50,8 @@ namespace SnakeGame
     sf::Vector2i GetCoordFromPosition(const sf::Vector2f& position)
     {
         return sf::Vector2i{
-            static_cast<int>(position.y / CELL_HEIGHT),
-            static_cast<int>(position.x / CELL_WIDTH)
+            static_cast<int>(position.x / CELL_HEIGHT),
+            static_cast<int>(position.y / CELL_WIDTH)
         };
     }
 
@@ -100,5 +101,13 @@ namespace SnakeGame
             (textSize.left + textSize.width) * relativePosition.x,
             (textSize.top + textSize.height) * relativePosition.y,
         };
+    }
+
+    int GetIntegerInRange(const int a, const int b)
+    {
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(a, b);
+        return dis(gen);
     }
 }

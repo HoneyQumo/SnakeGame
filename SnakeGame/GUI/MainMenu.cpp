@@ -9,7 +9,7 @@ namespace SnakeGame
         MainMenu& mainMenu = game.GUI.mainMenu;
 
         mainMenu.heading.setString("..::MAIN MENU::..");
-        mainMenu.heading.setFont(game.font);
+        mainMenu.heading.setFont(game.assets.font);
         mainMenu.heading.setCharacterSize(TEXT_HEADING);
         mainMenu.heading.setStyle(sf::Text::Underlined);
         mainMenu.heading.setFillColor(sf::Color::White);
@@ -20,7 +20,7 @@ namespace SnakeGame
         for (auto& option : mainMenu.options)
         {
             option.second.textNode.setString(option.second.title);
-            option.second.textNode.setFont(game.font);
+            option.second.textNode.setFont(game.assets.font);
             option.second.textNode.setCharacterSize(TEXT_MENU_ITEM);
             option.second.textNode.setFillColor(mainMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White);
             option.second.textNode.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_20_PERCENT + (index * 30.f));

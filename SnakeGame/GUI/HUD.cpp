@@ -11,13 +11,13 @@ namespace SnakeGame
         HUD.background.setPosition(0.f, 0.f);
         HUD.background.setFillColor(HUD_BACKGROUND_COLOR);
 
-        HUD.appleSprite.setTexture(game.apple.texture);
+        HUD.appleSprite.setTexture(game.assets.apple);
         HUD.appleSprite.setPosition(10.f, HUD_BACKGROUND_HEIGHT / 2.f);
         SetSpriteSize(HUD.appleSprite, APPLE_SIZE, APPLE_SIZE);
         SetSpriteOrigin(HUD.appleSprite, 0.f, 0.5f);
 
         HUD.score.setString("0");
-        HUD.score.setFont(game.font);
+        HUD.score.setFont(game.assets.font);
         HUD.score.setCharacterSize(30);
         HUD.score.setFillColor(sf::Color::White);
         // HUD.score.setPosition(10.f + APPLE_SIZE + 5.f, HUD_BACKGROUND_HEIGHT / 2.f);
