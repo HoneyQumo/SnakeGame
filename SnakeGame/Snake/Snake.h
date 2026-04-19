@@ -15,6 +15,7 @@ namespace SnakeGame
     };
 
     void InitSnake(Snake& snake, const Assets& assets);
+    void GrowSnake(Snake& snake, const Assets& assets);
     void SnakeControl(Snake& snake);
     void UpdateSnake(Snake& snake, float computedDistance);
     void DrawSnake(sf::RenderWindow& window, const Snake& snake);

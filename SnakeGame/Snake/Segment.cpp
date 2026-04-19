@@ -8,7 +8,6 @@ namespace SnakeGame
         Segment segment;
 
         segment.type = type;
-        // segment.coord = coord;
         segment.direction = Direction::Right;
         segment.sprite.setTexture(texture);
         segment.sprite.setPosition(coord.x * CELL_WIDTH + CELL_WIDTH / 2.f, coord.y * CELL_HEIGHT + CELL_HEIGHT / 2.f);

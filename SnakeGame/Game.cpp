@@ -100,6 +100,7 @@ namespace SnakeGame
                 ))
                 {
                     ++game.score;
+                    GrowSnake(game.snake, game.assets);
                     game.apples.clear();
                     SpawnApple(game);
                 }
