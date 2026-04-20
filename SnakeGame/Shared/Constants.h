@@ -43,6 +43,8 @@ namespace SnakeGame
     const auto HUD_BACKGROUND_COLOR = sf::Color(87, 138, 28, 255);
 
     /* Text */
-    constexpr unsigned TEXT_HEADING = 60;
+    constexpr unsigned TEXT_HEADING_1 = 60;
+    constexpr unsigned TEXT_HEADING_2 = 50;
+    constexpr unsigned TEXT_HEADING_3 = 40;
     constexpr unsigned TEXT_MENU_ITEM = 30;
 }

@@ -12,10 +12,11 @@ namespace SnakeGame
     void InitPauseMenu(Game& game)
     {
         auto& pauseMenu = game.GUI.pauseMenu;
+        ResetPauseMenu(pauseMenu);
 
         pauseMenu.heading.setString("..::Pause::..");
         pauseMenu.heading.setFont(game.assets.font);
-        pauseMenu.heading.setCharacterSize(TEXT_HEADING);
+        pauseMenu.heading.setCharacterSize(TEXT_HEADING_1);
         pauseMenu.heading.setStyle(sf::Text::Underlined);
         pauseMenu.heading.setFillColor(sf::Color::White);
         pauseMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);

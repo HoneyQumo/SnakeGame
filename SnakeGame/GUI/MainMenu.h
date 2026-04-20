@@ -32,6 +32,7 @@ namespace SnakeGame
         MainMenuOptionKey selectedOptionKey = MainMenuOptionKey::StartGame;
     };
 
+    void ResetMainMenu(MainMenu& mainMenu);
     struct Game;
     void InitMainMenu(Game& game);
     void DrawMainMenu(sf::RenderWindow& window, const MainMenu& mainMenu);

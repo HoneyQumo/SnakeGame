@@ -50,6 +50,7 @@ namespace SnakeGame
         InitPauseMenu(game);
         InitDifficultyLevelMenu(game);
         InitHUD(game);
+        InitGameOverMenu(game);
 
         /* Game Instances */
         InitField(game.field);
@@ -94,7 +95,8 @@ namespace SnakeGame
 
             if (HasSnakeCollisionWithWall(game.snake.segments[0], game.field) || HasSnakeCollisionWithSelf(game.snake))
             {
-                ResetGame(game);
+                // ResetGame(game);
+                PushGameState(game, GameState::GameOver);
                 break;
             }
 
@@ -117,6 +119,10 @@ namespace SnakeGame
 
             break;
 
+        case GameState::GameOver:
+            UpdateGameOverMenu(game);
+
+            break;
         case GameState::Pause:
         case GameState::DifficultyLevel:
         case GameState::Settings:
@@ -146,6 +152,10 @@ namespace SnakeGame
 
             break;
 
+        case GameState::GameOver:
+            DrawGameOverMenu(window, game.GUI.gameOverMenu);
+
+            break;
         case GameState::Pause:
             // if (game.GUI.pauseMenu.heading.getString().isEmpty())
             // {

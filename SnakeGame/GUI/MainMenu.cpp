@@ -1,16 +1,21 @@
-﻿// #include "MainMenu.h"
-#include "../Game.h"
+﻿#include "../Game.h"
 #include "../Shared/Shared.h"
 
 namespace SnakeGame
 {
+    void ResetMainMenu(MainMenu& mainMenu)
+    {
+        SetOptionKey(mainMenu.options, mainMenu.selectedOptionKey, MainMenuOptionKey::StartGame);
+    }
+    
     void InitMainMenu(Game& game)
     {
         MainMenu& mainMenu = game.GUI.mainMenu;
+        ResetMainMenu(mainMenu);
 
         mainMenu.heading.setString("..::MAIN MENU::..");
         mainMenu.heading.setFont(game.assets.font);
-        mainMenu.heading.setCharacterSize(TEXT_HEADING);
+        mainMenu.heading.setCharacterSize(TEXT_HEADING_1);
         mainMenu.heading.setStyle(sf::Text::Underlined);
         mainMenu.heading.setFillColor(sf::Color::White);
         mainMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);

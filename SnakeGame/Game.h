@@ -13,6 +13,7 @@ namespace SnakeGame
     enum class GameState
     {
         Playing = 0,
+        GameOver,
         Pause,
         MainMenu,
         DifficultyLevel,

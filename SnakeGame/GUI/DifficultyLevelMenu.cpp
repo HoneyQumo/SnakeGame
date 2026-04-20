@@ -4,13 +4,19 @@
 
 namespace SnakeGame
 {
+    void ResetDifficultyLevelMenu(DifficultyLevelMenu& difficultyLevelMenu)
+    {
+        SetOptionKey(difficultyLevelMenu.options, difficultyLevelMenu.selectedOptionKey, DifficultyLevelType::Easy);
+    }
+    
     void InitDifficultyLevelMenu(Game& game)
     {
         auto& difficultyLevelMenu = game.GUI.difficultyLevelMenu;
+        ResetDifficultyLevelMenu(difficultyLevelMenu);
 
         difficultyLevelMenu.heading.setString(L"..::Сложность::..");
         difficultyLevelMenu.heading.setFont(game.assets.font);
-        difficultyLevelMenu.heading.setCharacterSize(TEXT_HEADING);
+        difficultyLevelMenu.heading.setCharacterSize(TEXT_HEADING_1);
         difficultyLevelMenu.heading.setStyle(sf::Text::Underlined);
         difficultyLevelMenu.heading.setFillColor(sf::Color::White);
         difficultyLevelMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);

@@ -20,6 +20,7 @@ namespace SnakeGame
         DifficultyLevelType selectedOptionKey = DifficultyLevelType::Easy;
     };
 
+    void ResetDifficultyLevelMenu(DifficultyLevelMenu& difficultyLevelMenu);
     struct Game;
     void InitDifficultyLevelMenu(Game& game);
     void DrawDifficultyLevelMenu(sf::RenderWindow& window, const DifficultyLevelMenu& difficultyLevelMenu);

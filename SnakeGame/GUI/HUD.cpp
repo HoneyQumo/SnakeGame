@@ -20,7 +20,6 @@ namespace SnakeGame
         HUD.score.setFont(game.assets.font);
         HUD.score.setCharacterSize(30);
         HUD.score.setFillColor(sf::Color::White);
-        // HUD.score.setPosition(10.f + APPLE_SIZE + 5.f, HUD_BACKGROUND_HEIGHT / 2.f);
         HUD.score.setPosition(10.f + APPLE_SIZE + 5.f, 20.f);
         HUD.score.setOrigin(GetTextOrigin(HUD.score, {0.f, 0.5f}));
     }

@@ -82,7 +82,11 @@ int main()
             const auto& gameState = GetCurrentGameState(game);
             switch (gameState)
             {
-            // case GameState::Playing:
+            case GameState::Playing:
+                break;
+            case GameState::GameOver:
+                GameOverMenuKeyboardHandler(event, game);
+                break;
             case GameState::Pause:
                 PauseMenuKeyboardHandler(event, game);
                 break;
