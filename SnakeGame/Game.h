@@ -3,6 +3,7 @@
 #include "Apple.h"
 #include "Field.h"
 #include "DifficultyLevel.h"
+#include "Leaderboard.h"
 #include "GUI/GUI.h"
 #include "Shared/Assets.h"
 #include "Shared/Constants.h"
@@ -36,6 +37,7 @@ namespace SnakeGame
         DifficultyLevel difficulty;
 
         std::stack<GameState> gameStateStack;
+        Leaderboard leaderboard;
     };
 
     void ResetGameState(Game& game);

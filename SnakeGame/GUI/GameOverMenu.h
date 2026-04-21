@@ -28,6 +28,7 @@ namespace SnakeGame
 
     void ResetGameOverMenu(GameOverMenu& gameOverMenu);
     struct Game;
+    void UpdateGameOverLeaderboard(Game& game);
     void InitGameOverMenu(Game& game);
     void UpdateGameOverMenu(Game& game);
     void DrawGameOverMenu(sf::RenderWindow& window, const GameOverMenu& gameOverMenu);

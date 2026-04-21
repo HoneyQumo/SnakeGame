@@ -95,7 +95,8 @@ namespace SnakeGame
 
             if (HasSnakeCollisionWithWall(game.snake.segments[0], game.field) || HasSnakeCollisionWithSelf(game.snake))
             {
-                // ResetGame(game);
+                AddItemToLeaderboard(game);
+                UpdateGameOverLeaderboard(game);
                 PushGameState(game, GameState::GameOver);
                 break;
             }
@@ -107,7 +108,6 @@ namespace SnakeGame
                     game.apples[i].sprite.getPosition(), {APPLE_SIZE, APPLE_SIZE}
                 ))
                 {
-                    ++game.score;
                     game.score += game.difficulty.value.pointsPerApple;
                     GrowSnake(game.snake, game.assets);
                     game.apples.clear();

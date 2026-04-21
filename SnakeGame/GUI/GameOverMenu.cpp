@@ -9,6 +9,31 @@ namespace SnakeGame
         SetOptionKey(gameOverMenu.options, gameOverMenu.selectedOptionKey, GameOverMenuOptionKey::StartGame);
     }
 
+    void UpdateGameOverLeaderboard(Game& game)
+    {
+        game.GUI.gameOverMenu.leaderboard.clear();
+        const auto& leaderboard = GetSortedLeaderboard(game.leaderboard.array);
+
+        for (unsigned i = 0; i < std::min(5, static_cast<const int&>(leaderboard.size())); ++i)
+        {
+            const auto& item = leaderboard[i];
+
+            int totalWidth = 20; // символов в строке
+            int spacesNeeded = totalWidth - item.playerName.size() - item.playerName.size();
+
+            sf::Text tmpItem;
+            tmpItem.setString(std::to_wstring(i + 1) + L". " + item.playerName + std::wstring(spacesNeeded, L' ') + std::to_wstring(item.score));
+            tmpItem.setFont(game.assets.font);
+            tmpItem.setCharacterSize(20);
+            tmpItem.setFillColor(sf::Color::White);
+            tmpItem.setPosition(SCREEN_WIDTH / 2.f - 100.f, (SCREEN_HEIGHT / 2.f - 160.f) + (i * 30.f));
+            // tmpItem.setOrigin(GetTextOrigin(tmpItem, {0.5f, 0.5f}));
+            tmpItem.setOrigin(GetTextOrigin(tmpItem, {0.f, 0.5f}));
+
+            game.GUI.gameOverMenu.leaderboard.push_back(tmpItem);
+        }
+    }
+
     void InitGameOverMenu(Game& game)
     {
         GameOverMenu& gameOverMenu = game.GUI.gameOverMenu;
@@ -34,8 +59,10 @@ namespace SnakeGame
         gameOverMenu.recordsTitle.setFont(game.assets.font);
         gameOverMenu.recordsTitle.setCharacterSize(TEXT_HEADING_3);
         gameOverMenu.recordsTitle.setFillColor(sf::Color::White);
-        gameOverMenu.recordsTitle.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f);
+        gameOverMenu.recordsTitle.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f - 200.f);
         gameOverMenu.recordsTitle.setOrigin(GetTextOrigin(gameOverMenu.recordsTitle, {0.5f, 0.5f}));
+
+        UpdateGameOverLeaderboard(game);
 
         int index = 0;
         for (auto& option : gameOverMenu.options)
@@ -64,6 +91,11 @@ namespace SnakeGame
         window.draw(gameOverMenu.heading);
         window.draw(gameOverMenu.scoreTitle);
         window.draw(gameOverMenu.recordsTitle);
+
+        for (const auto& item : gameOverMenu.leaderboard)
+        {
+            window.draw(item);
+        }
 
         for (const auto& option : gameOverMenu.options)
         {
