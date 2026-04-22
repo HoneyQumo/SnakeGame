@@ -4,6 +4,7 @@
 #include "DifficultyLevelMenu.h"
 #include "GameOverMenu.h"
 #include "HUD.h"
+#include "LeaderboardMenu.h"
 
 namespace SnakeGame
 {
@@ -14,5 +15,6 @@ namespace SnakeGame
         DifficultyLevelMenu difficultyLevelMenu;
         HUD HUD;
         GameOverMenu gameOverMenu;
+        LeaderboardMenu leaderboardMenu;
     };
 }

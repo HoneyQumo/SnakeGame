@@ -51,6 +51,7 @@ namespace SnakeGame
         InitDifficultyLevelMenu(game);
         InitHUD(game);
         InitGameOverMenu(game);
+        InitLeaderboardMenu(game);
 
         /* Game Instances */
         InitField(game.field);
@@ -170,7 +171,9 @@ namespace SnakeGame
 
             break;
         case GameState::Settings:
+            break;
         case GameState::Leaderboard:
+            DrawLeaderboardMenu(window, game.GUI.leaderboardMenu);
             break;
         }
     }

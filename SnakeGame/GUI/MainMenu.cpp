@@ -7,7 +7,7 @@ namespace SnakeGame
     {
         SetOptionKey(mainMenu.options, mainMenu.selectedOptionKey, MainMenuOptionKey::StartGame);
     }
-    
+
     void InitMainMenu(Game& game)
     {
         MainMenu& mainMenu = game.GUI.mainMenu;
@@ -56,6 +56,7 @@ namespace SnakeGame
             PushGameState(game, GameState::DifficultyLevel);
             break;
         case MainMenuOptionKey::Leaderboard:
+            UpdateLeaderboardInLeaderboardMenu(game);
             PushGameState(game, GameState::Leaderboard);
             break;
         case MainMenuOptionKey::Settings:

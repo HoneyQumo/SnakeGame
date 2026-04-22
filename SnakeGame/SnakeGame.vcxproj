@@ -168,6 +168,7 @@
         <ClCompile Include="GUI\GameOverMenu.cpp"/>
         <ClCompile Include="GUI\GUI.cpp"/>
         <ClCompile Include="GUI\HUD.cpp"/>
+        <ClCompile Include="GUI\LeaderboardMenu.cpp"/>
         <ClCompile Include="GUI\MainMenu.cpp"/>
         <ClCompile Include="GUI\PauseMenu.cpp"/>
         <ClCompile Include="Leaderboard.cpp"/>
@@ -418,6 +419,7 @@
         <ClInclude Include="GUI\GameOverMenu.h"/>
         <ClInclude Include="GUI\GUI.h"/>
         <ClInclude Include="GUI\HUD.h"/>
+        <ClInclude Include="GUI\LeaderboardMenu.h"/>
         <ClInclude Include="GUI\MainMenu.h"/>
         <ClInclude Include="GUI\PauseMenu.h"/>
         <ClInclude Include="Leaderboard.h"/>
