@@ -1,4 +1,5 @@
-﻿#include <algorithm>
+﻿#include <fstream>
+#include <algorithm>
 #include "Leaderboard.h"
 #include "Game.h"
 
@@ -19,7 +20,7 @@ namespace SnakeGame
             leaderboard.erase(leaderboard.end());
         }
     }
-    
+
     std::vector<LeaderboardItem> GetSortedLeaderboard(std::vector<LeaderboardItem> leaderboard)
     {
         std::stable_sort(leaderboard.begin(), leaderboard.end(), [](const LeaderboardItem& item1, const LeaderboardItem& item2)
@@ -28,5 +29,44 @@ namespace SnakeGame
         });
 
         return leaderboard;
+    }
+
+    bool SerializeAndSaveGame(const Leaderboard& leaderboard)
+    {
+        std::wofstream file(LEADERBOARD_FILE_PATH);
+
+        if (file.is_open())
+        {
+            for (const auto& item : leaderboard.array)
+            {
+                file << item.playerName << L" " << item.score << "\n";
+            }
+
+            file.close();
+            return true;
+        }
+
+        return false;
+    }
+
+    bool DeserializeAndLoadLeaderboard(Leaderboard& leaderboard)
+    {
+        std::wifstream file(LEADERBOARD_FILE_PATH);
+
+        if (file.is_open())
+        {
+            leaderboard.array.clear();
+            LeaderboardItem tmpItem;
+
+            while (file >> tmpItem.playerName >> tmpItem.score)
+            {
+                leaderboard.array.push_back(tmpItem);
+            }
+
+            file.close();
+            return true;
+        }
+        
+        return false;
     }
 }

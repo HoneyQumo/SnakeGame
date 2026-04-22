@@ -18,4 +18,7 @@ namespace SnakeGame
     struct Game;
     void AddItemToLeaderboard(Game& game);
     std::vector<LeaderboardItem> GetSortedLeaderboard(std::vector<LeaderboardItem> leaderboard);
+
+    bool SerializeAndSaveGame(const Leaderboard& leaderboard);
+    bool DeserializeAndLoadLeaderboard(Leaderboard& leaderboard);
 }

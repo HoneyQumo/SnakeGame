@@ -10,6 +10,8 @@ namespace SnakeGame
     const std::string RESOURCES_FONTS = RESOURCES_PATH + "Fonts";
     const std::string RESOURCES_GRAPHICS = RESOURCES_PATH + "Graphics";
 
+    const std::string LEADERBOARD_FILE_PATH = "leaderboard.txt";
+
     /* Video */
     constexpr unsigned SCREEN_WIDTH = 1000;
     constexpr unsigned SCREEN_HEIGHT = 1000;

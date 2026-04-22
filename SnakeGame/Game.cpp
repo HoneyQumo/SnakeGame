@@ -76,6 +76,8 @@ namespace SnakeGame
 
         game.difficulty = {DifficultyLevelType::Medium, LEVEL_CONFIG.at(DifficultyLevelType::Medium)};
 
+        DeserializeAndLoadLeaderboard(game.leaderboard);
+        
         ResetGame(game);
     }
 
@@ -99,6 +101,8 @@ namespace SnakeGame
                 AddItemToLeaderboard(game);
                 UpdateGameOverLeaderboard(game);
                 PushGameState(game, GameState::GameOver);
+                SerializeAndSaveGame(game.leaderboard);
+
                 break;
             }
 
