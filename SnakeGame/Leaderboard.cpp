@@ -17,7 +17,7 @@ namespace SnakeGame
 
         if (leaderboard.size() > 10)
         {
-            leaderboard.erase(leaderboard.end());
+            leaderboard.resize(10);
         }
     }
 
@@ -66,7 +66,7 @@ namespace SnakeGame
             file.close();
             return true;
         }
-        
+
         return false;
     }
 }
