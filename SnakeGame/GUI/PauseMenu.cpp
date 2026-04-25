@@ -66,14 +66,17 @@ namespace SnakeGame
         {
             if (event.key.code == sf::Keyboard::Enter)
             {
+                game.assets.menuSelect.play();
                 PauseMenuOptionSelectHandler(game);
             }
             else if (event.key.code == sf::Keyboard::Up)
             {
+                game.assets.menuToggle.play();
                 MenuToggleOption(game.GUI.pauseMenu.options, game.GUI.pauseMenu.selectedOptionKey, DirectionVertical::Up);
             }
             else if (event.key.code == sf::Keyboard::Down)
             {
+                game.assets.menuToggle.play();
                 MenuToggleOption(game.GUI.pauseMenu.options, game.GUI.pauseMenu.selectedOptionKey, DirectionVertical::Down);
             }
         }

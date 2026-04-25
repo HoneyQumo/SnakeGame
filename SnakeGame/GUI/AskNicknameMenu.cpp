@@ -67,7 +67,6 @@ namespace SnakeGame
         }
     }
 
-   
 
     void AskNicknameMenuKeyboardHandler(const sf::Event& event, Game& game)
     {
@@ -77,6 +76,7 @@ namespace SnakeGame
         {
             if (event.key.code == sf::Keyboard::Enter)
             {
+                game.assets.menuSelect.play();
                 AddItemToLeaderboard(game);
                 UpdateGameOverLeaderboard(game);
                 SerializeAndSaveGame(game.leaderboard);
@@ -84,10 +84,12 @@ namespace SnakeGame
             }
             else if (event.key.code == sf::Keyboard::Up)
             {
+                game.assets.menuToggle.play();
                 MenuToggleOption(askNicknameMenu.options, askNicknameMenu.selectedOptionKey, DirectionVertical::Up);
             }
             else if (event.key.code == sf::Keyboard::Down)
             {
+                game.assets.menuToggle.play();
                 MenuToggleOption(askNicknameMenu.options, askNicknameMenu.selectedOptionKey, DirectionVertical::Down);
             }
         }

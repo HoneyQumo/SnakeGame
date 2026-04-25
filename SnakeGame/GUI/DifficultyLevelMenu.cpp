@@ -8,7 +8,7 @@ namespace SnakeGame
     {
         SetOptionKey(difficultyLevelMenu.options, difficultyLevelMenu.selectedOptionKey, DifficultyLevelType::Easy);
     }
-    
+
     void InitDifficultyLevelMenu(Game& game)
     {
         auto& difficultyLevelMenu = game.GUI.difficultyLevelMenu;
@@ -57,6 +57,7 @@ namespace SnakeGame
         {
             if (event.key.code == sf::Keyboard::Enter)
             {
+                game.assets.menuSelect.play();
                 game.difficulty.type = game.GUI.difficultyLevelMenu.selectedOptionKey;
                 game.difficulty.value = LEVEL_CONFIG.at(game.difficulty.type);
 
@@ -74,10 +75,12 @@ namespace SnakeGame
             }
             else if (event.key.code == sf::Keyboard::Up)
             {
+                game.assets.menuToggle.play();
                 MenuToggleOption(game.GUI.difficultyLevelMenu.options, game.GUI.difficultyLevelMenu.selectedOptionKey, DirectionVertical::Up);
             }
             else if (event.key.code == sf::Keyboard::Down)
             {
+                game.assets.menuToggle.play();
                 MenuToggleOption(game.GUI.difficultyLevelMenu.options, game.GUI.difficultyLevelMenu.selectedOptionKey, DirectionVertical::Down);
             }
         }
