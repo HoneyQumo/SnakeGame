@@ -24,7 +24,8 @@ namespace SnakeGame
     constexpr float DEFAULT_VIEW_PERCENT = 1.f - HUD_VIEW_PERCENT;
 
     /* Audio */
-    // constexpr float INITIAL_VOLUME = 25.f;
+    constexpr float MUSIC_INITIAL_VOLUME = 15.f;
+    constexpr float GENERAL_INITIAL_VOLUME = 50.f;
 
     /* General */
     // constexpr unsigned int TIMEOUT_BEFORE_RESTART_IN_SECONDS = 2;

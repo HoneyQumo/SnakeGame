@@ -54,6 +54,25 @@ namespace SnakeGame
         InitLeaderboardMenu(game);
         InitAskNicknameMenu(game);
 
+        /*Sounds*/
+        game.assets.music.setBuffer(game.assets.musicBuffer);
+        game.assets.music.setVolume(MUSIC_INITIAL_VOLUME);
+        game.assets.music.setPlayingOffset(sf::seconds(0.f));
+        game.assets.music.setLoop(true);
+        game.assets.music.play();
+
+        game.assets.death.setBuffer(game.assets.deathBuffer);
+        game.assets.death.setVolume(GENERAL_INITIAL_VOLUME);
+
+        game.assets.eat.setBuffer(game.assets.eatBuffer);
+        game.assets.eat.setVolume(GENERAL_INITIAL_VOLUME);
+
+        game.assets.menuToggle.setBuffer(game.assets.menuToggleBuffer);
+        game.assets.menuToggle.setVolume(GENERAL_INITIAL_VOLUME);
+
+        game.assets.menuSelect.setBuffer(game.assets.menuSelectBuffer);
+        game.assets.menuSelect.setVolume(GENERAL_INITIAL_VOLUME);
+
         /* Game Instances */
         InitField(game.field);
         InitSnake(game.snake, game.assets);
@@ -74,6 +93,13 @@ namespace SnakeGame
         assert(game.assets.snakeBodyAngle.loadFromFile(RESOURCES_GRAPHICS + "\\body_bottomright.png"));
         assert(game.assets.snakeTail.loadFromFile(RESOURCES_GRAPHICS + "\\tail_left.png"));
         assert(game.assets.apple.loadFromFile(RESOURCES_GRAPHICS + "\\apple.png"));
+
+        /* Sounds */
+        assert(game.assets.musicBuffer.loadFromFile(RESOURCES_AUDIO + "\\music.wav"));
+        assert(game.assets.deathBuffer.loadFromFile(RESOURCES_AUDIO + "\\death.wav"));
+        assert(game.assets.eatBuffer.loadFromFile(RESOURCES_AUDIO + "\\eat.wav"));
+        assert(game.assets.menuToggleBuffer.loadFromFile(RESOURCES_AUDIO + "\\menu-toggle.wav"));
+        assert(game.assets.menuSelectBuffer.loadFromFile(RESOURCES_AUDIO + "\\menu-select.wav"));
 
         game.difficulty = {DifficultyLevelType::Medium, LEVEL_CONFIG.at(DifficultyLevelType::Medium)};
 
@@ -99,13 +125,15 @@ namespace SnakeGame
 
             if (HasSnakeCollisionWithWall(game.snake.segments[0], game.field) || HasSnakeCollisionWithSelf(game.snake))
             {
+                game.assets.music.stop();
+                game.assets.death.play();
                 PushGameState(game, GameState::GameOver);
 
                 if (game.score > 0 && (game.leaderboard.array.empty() || game.score > std::prev(game.leaderboard.array.end())->score))
                 {
                     PushGameState(game, GameState::AskNickname);
                 }
-                
+
                 break;
             }
 
@@ -116,6 +144,7 @@ namespace SnakeGame
                     game.apples[i].sprite.getPosition(), {APPLE_SIZE, APPLE_SIZE}
                 ))
                 {
+                    game.assets.eat.play();
                     game.score += game.difficulty.value.pointsPerApple;
                     GrowSnake(game.snake, game.assets);
                     game.apples.clear();
