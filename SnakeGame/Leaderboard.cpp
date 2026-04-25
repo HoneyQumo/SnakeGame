@@ -7,8 +7,10 @@ namespace SnakeGame
 {
     void AddItemToLeaderboard(Game& game)
     {
+        const auto playerName = game.GUI.askNicknameMenu.nicknameInput.isEmpty() ? L"XYZ" : game.GUI.askNicknameMenu.nicknameInput.toWideString();
+
         auto& leaderboard = game.leaderboard.array;
-        leaderboard.push_back({L"XYZ", game.score});
+        leaderboard.push_back({playerName, game.score});
 
         std::stable_sort(leaderboard.begin(), leaderboard.end(), [](const LeaderboardItem& item1, const LeaderboardItem& item2)
         {
@@ -37,8 +39,10 @@ namespace SnakeGame
 
         if (file.is_open())
         {
-            for (const auto& item : leaderboard.array)
+            for (auto item : leaderboard.array)
             {
+                std::replace(item.playerName.begin(), item.playerName.end(), L' ', L'_');
+
                 file << item.playerName << L" " << item.score << "\n";
             }
 
@@ -60,6 +64,7 @@ namespace SnakeGame
 
             while (file >> tmpItem.playerName >> tmpItem.score)
             {
+                std::replace(tmpItem.playerName.begin(), tmpItem.playerName.end(), L'_', L' ');
                 leaderboard.array.push_back(tmpItem);
             }
 

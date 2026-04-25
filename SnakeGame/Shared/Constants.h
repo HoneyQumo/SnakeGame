@@ -49,4 +49,5 @@ namespace SnakeGame
     constexpr unsigned TEXT_HEADING_2 = 50;
     constexpr unsigned TEXT_HEADING_3 = 40;
     constexpr unsigned TEXT_MENU_ITEM = 30;
+    const sf::String INPUT_PLACEHOLDER = L"Введите имя (XYZ)";
 }

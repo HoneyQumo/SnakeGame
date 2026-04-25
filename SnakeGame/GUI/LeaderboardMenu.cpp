@@ -12,11 +12,8 @@ namespace SnakeGame
         {
             const auto& item = leaderboard[i];
 
-            int totalWidth = 14; // символов в строке
-            int spacesNeeded = totalWidth - item.playerName.size() - item.playerName.size();
-
             sf::Text tmpItem;
-            tmpItem.setString(std::to_wstring(i + 1) + L". " + item.playerName + std::wstring(spacesNeeded, L' ') + std::to_wstring(item.score));
+            tmpItem.setString(std::to_wstring(i + 1) + L". " + item.playerName + L" (" + std::to_wstring(item.score) + L")");
             tmpItem.setFont(game.assets.font);
             tmpItem.setCharacterSize(TEXT_HEADING_3);
             tmpItem.setFillColor(sf::Color::White);

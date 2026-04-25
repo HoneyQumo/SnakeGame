@@ -20,6 +20,7 @@ namespace SnakeGame
         DifficultyLevel,
         Settings,
         Leaderboard,
+        AskNickname
     };
 
     struct Game

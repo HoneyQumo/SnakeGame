@@ -52,6 +52,7 @@ namespace SnakeGame
         InitHUD(game);
         InitGameOverMenu(game);
         InitLeaderboardMenu(game);
+        InitAskNicknameMenu(game);
 
         /* Game Instances */
         InitField(game.field);
@@ -77,7 +78,7 @@ namespace SnakeGame
         game.difficulty = {DifficultyLevelType::Medium, LEVEL_CONFIG.at(DifficultyLevelType::Medium)};
 
         DeserializeAndLoadLeaderboard(game.leaderboard);
-        
+
         ResetGame(game);
     }
 
@@ -98,11 +99,13 @@ namespace SnakeGame
 
             if (HasSnakeCollisionWithWall(game.snake.segments[0], game.field) || HasSnakeCollisionWithSelf(game.snake))
             {
-                AddItemToLeaderboard(game);
-                UpdateGameOverLeaderboard(game);
                 PushGameState(game, GameState::GameOver);
-                SerializeAndSaveGame(game.leaderboard);
 
+                if (game.score > 0 && (game.leaderboard.array.empty() || game.score > std::prev(game.leaderboard.array.end())->score))
+                {
+                    PushGameState(game, GameState::AskNickname);
+                }
+                
                 break;
             }
 
@@ -157,6 +160,10 @@ namespace SnakeGame
 
             break;
 
+        case GameState::AskNickname:
+            DrawAskNicknameMenu(window, game.GUI.askNicknameMenu);
+
+            break;
         case GameState::GameOver:
             DrawGameOverMenu(window, game.GUI.gameOverMenu);
 

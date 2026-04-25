@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "AskNicknameMenu.h"
 #include "MainMenu.h"
 #include "PauseMenu.h"
 #include "DifficultyLevelMenu.h"
@@ -16,5 +17,6 @@ namespace SnakeGame
         HUD HUD;
         GameOverMenu gameOverMenu;
         LeaderboardMenu leaderboardMenu;
+        AskNicknameMenu askNicknameMenu;
     };
 }

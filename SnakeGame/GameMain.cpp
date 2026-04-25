@@ -61,7 +61,11 @@ int main()
                     break;
 
                 case sf::Keyboard::Backspace:
-                    PopGameState(game);
+                    if (gameState != GameState::AskNickname)
+                    {
+                        PopGameState(game);
+                    }
+
                     break;
 
                 case sf::Keyboard::P:
@@ -79,6 +83,7 @@ int main()
                 }
             }
 
+
             const auto& gameState = GetCurrentGameState(game);
             switch (gameState)
             {
@@ -86,6 +91,9 @@ int main()
                 break;
             case GameState::GameOver:
                 GameOverMenuKeyboardHandler(event, game);
+                break;
+            case GameState::AskNickname:
+                AskNicknameMenuKeyboardHandler(event, game);
                 break;
             case GameState::Pause:
                 PauseMenuKeyboardHandler(event, game);
