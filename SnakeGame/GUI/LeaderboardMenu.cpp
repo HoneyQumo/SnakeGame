@@ -13,12 +13,9 @@ namespace SnakeGame
             const auto& item = leaderboard[i];
 
             sf::Text tmpItem;
-            tmpItem.setString(std::to_wstring(i + 1) + L". " + item.playerName + L" (" + std::to_wstring(item.score) + L")");
-            tmpItem.setFont(game.assets.font);
-            tmpItem.setCharacterSize(TEXT_HEADING_3);
-            tmpItem.setFillColor(sf::Color::White);
+            const auto text = std::to_wstring(i + 1) + L". " + item.playerName + L" (" + std::to_wstring(item.score) + L")";
+            InitText(tmpItem, text, game.assets.font, TEXT_HEADING_3, sf::Color::White, {0.f, 0.5f});
             tmpItem.setPosition(SCREEN_WIDTH / 2.f - 200.f, (OFFSET_TOP_WINDOW_20_PERCENT) + (i * 40.f));
-            tmpItem.setOrigin(GetTextOrigin(tmpItem, {0.f, 0.5f}));
 
             game.GUI.leaderboardMenu.leaderboard.push_back(tmpItem);
         }
@@ -28,13 +25,10 @@ namespace SnakeGame
     {
         LeaderboardMenu& leaderboardMenu = game.GUI.leaderboardMenu;
 
-        leaderboardMenu.heading.setString(std::wstring(L"Таблица рекордов"));
-        leaderboardMenu.heading.setFont(game.assets.font);
-        leaderboardMenu.heading.setCharacterSize(TEXT_HEADING_1);
+        InitText(leaderboardMenu.heading, L"Таблица рекордов", game.assets.font, TEXT_HEADING_1);
+
         leaderboardMenu.heading.setStyle(sf::Text::Bold);
-        leaderboardMenu.heading.setFillColor(sf::Color::White);
         leaderboardMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);
-        leaderboardMenu.heading.setOrigin(GetTextOrigin(leaderboardMenu.heading, {0.5f, 0.5f}));
 
         UpdateLeaderboardInLeaderboardMenu(game);
     }

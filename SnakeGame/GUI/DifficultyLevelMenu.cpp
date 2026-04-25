@@ -14,23 +14,16 @@ namespace SnakeGame
         auto& difficultyLevelMenu = game.GUI.difficultyLevelMenu;
         ResetDifficultyLevelMenu(difficultyLevelMenu);
 
-        difficultyLevelMenu.heading.setString(L"..::Сложность::..");
-        difficultyLevelMenu.heading.setFont(game.assets.font);
-        difficultyLevelMenu.heading.setCharacterSize(TEXT_HEADING_1);
+        InitText(difficultyLevelMenu.heading, L"..::Сложность::..", game.assets.font);
         difficultyLevelMenu.heading.setStyle(sf::Text::Underlined);
-        difficultyLevelMenu.heading.setFillColor(sf::Color::White);
         difficultyLevelMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);
-        difficultyLevelMenu.heading.setOrigin(GetTextOrigin(difficultyLevelMenu.heading, {0.5f, 0.5f}));
 
         int index = 0;
         for (auto& option : difficultyLevelMenu.options)
         {
-            option.second.textNode.setString(option.second.title);
-            option.second.textNode.setFont(game.assets.font);
-            option.second.textNode.setCharacterSize(TEXT_MENU_ITEM);
-            option.second.textNode.setFillColor(difficultyLevelMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White);
+            const auto color = difficultyLevelMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White;
+            InitText(option.second.textNode, option.second.title, game.assets.font, TEXT_MENU_ITEM, color);
             option.second.textNode.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_20_PERCENT + (index * 30.f));
-            option.second.textNode.setOrigin(GetTextOrigin(option.second.textNode, {0.5f, 0.5f}));
 
             if (game.difficulty.type == option.first)
             {

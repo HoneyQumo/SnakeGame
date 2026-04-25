@@ -19,13 +19,9 @@ namespace SnakeGame
             const auto& item = leaderboard[i];
 
             sf::Text tmpItem;
-            tmpItem.setString(std::to_wstring(i + 1) + L". " + item.playerName + L" (" + std::to_wstring(item.score) + L")");
-            tmpItem.setFont(game.assets.font);
-            tmpItem.setCharacterSize(20);
-            tmpItem.setFillColor(sf::Color::White);
+            const auto text = std::to_wstring(i + 1) + L". " + item.playerName + L" (" + std::to_wstring(item.score) + L")";
+            InitText(tmpItem, text, game.assets.font, TEXT_MENU_ITEM, sf::Color::White, {0.f, 0.5f});
             tmpItem.setPosition(SCREEN_WIDTH / 2.f - 100.f, (SCREEN_HEIGHT / 2.f - 160.f) + (i * 30.f));
-            // tmpItem.setOrigin(GetTextOrigin(tmpItem, {0.5f, 0.5f}));
-            tmpItem.setOrigin(GetTextOrigin(tmpItem, {0.f, 0.5f}));
 
             game.GUI.gameOverMenu.leaderboard.push_back(tmpItem);
         }
@@ -36,42 +32,25 @@ namespace SnakeGame
         GameOverMenu& gameOverMenu = game.GUI.gameOverMenu;
         ResetGameOverMenu(gameOverMenu);
 
-        gameOverMenu.heading.setString(std::wstring(L"Количество очков"));
-        gameOverMenu.heading.setFont(game.assets.font);
-        gameOverMenu.heading.setCharacterSize(TEXT_HEADING_1);
+        InitText(gameOverMenu.heading, std::wstring(L"Количество очков"), game.assets.font);
         gameOverMenu.heading.setStyle(sf::Text::Bold);
-        gameOverMenu.heading.setFillColor(sf::Color::White);
         gameOverMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);
-        gameOverMenu.heading.setOrigin(GetTextOrigin(gameOverMenu.heading, {0.5f, 0.5f}));
 
-        gameOverMenu.scoreTitle.setString(std::to_string(game.score));
-        gameOverMenu.scoreTitle.setFont(game.assets.font);
-        gameOverMenu.scoreTitle.setCharacterSize(TEXT_HEADING_2);
+        InitText(gameOverMenu.scoreTitle, std::to_string(game.score), game.assets.font, TEXT_HEADING_2);
         gameOverMenu.scoreTitle.setStyle(sf::Text::Bold);
-        gameOverMenu.scoreTitle.setFillColor(sf::Color::White);
         gameOverMenu.scoreTitle.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT + 60.f);
-        gameOverMenu.scoreTitle.setOrigin(GetTextOrigin(gameOverMenu.scoreTitle, {0.5f, 0.5f}));
 
-        gameOverMenu.recordsTitle.setString(std::wstring(L"Рекорды"));
-        gameOverMenu.recordsTitle.setFont(game.assets.font);
-        gameOverMenu.recordsTitle.setCharacterSize(TEXT_HEADING_3);
-        gameOverMenu.recordsTitle.setFillColor(sf::Color::White);
+        InitText(gameOverMenu.recordsTitle, std::wstring(L"Рекорды"), game.assets.font, TEXT_HEADING_3);
         gameOverMenu.recordsTitle.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f - 200.f);
-        gameOverMenu.recordsTitle.setOrigin(GetTextOrigin(gameOverMenu.recordsTitle, {0.5f, 0.5f}));
 
         UpdateGameOverLeaderboard(game);
 
         int index = 0;
         for (auto& option : gameOverMenu.options)
         {
-            option.second.textNode.setString(option.second.title);
-            option.second.textNode.setFont(game.assets.font);
-            option.second.textNode.setCharacterSize(TEXT_MENU_ITEM);
-            option.second.textNode.setFillColor(gameOverMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White);
-            // option.second.textNode.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_20_PERCENT + (index * 30.f));
+            const auto color = gameOverMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White;
+            InitText(option.second.textNode, option.second.title, game.assets.font, TEXT_MENU_ITEM, color);
             option.second.textNode.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT - OFFSET_TOP_WINDOW_10_PERCENT - (gameOverMenu.options.size() - index) * 30.f);
-            option.second.textNode.setOrigin(GetTextOrigin(option.second.textNode, {0.5f, 0.5f}));
-
             index++;
         }
     }

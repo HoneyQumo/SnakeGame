@@ -2,6 +2,7 @@
 #include <string>
 #include "SFML/Graphics.hpp"
 #include "Direction.h"
+#include "Math.h"
 
 namespace SnakeGame
 {
@@ -14,6 +15,15 @@ namespace SnakeGame
     // struct Shared
     // {
     // };
+
+    void InitText(
+        sf::Text& node,
+        const sf::String& text,
+        const sf::Font& font,
+        unsigned textSize = TEXT_HEADING_1,
+        sf::Color color = sf::Color::White,
+        sf::Vector2f origin = {0.5f, 0.5f}
+    );
 
     template <typename T>
     static void MenuToggleOption(std::map<T, MenuOption>& options, T& selectedOptionKey, DirectionVertical direction)

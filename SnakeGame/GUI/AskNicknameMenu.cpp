@@ -15,41 +15,24 @@ namespace SnakeGame
         AskNicknameMenu& askNicknameMenu = game.GUI.askNicknameMenu;
         ResetAskNicknameMenu(askNicknameMenu);
 
-        askNicknameMenu.heading.setString(std::wstring(L"Новый рекорд!"));
-        askNicknameMenu.heading.setFont(game.assets.font);
-        askNicknameMenu.heading.setCharacterSize(TEXT_HEADING_1);
+        InitText(askNicknameMenu.heading, std::wstring(L"Новый рекорд!"), game.assets.font);
         askNicknameMenu.heading.setStyle(sf::Text::Underlined | sf::Text::Bold);
-        askNicknameMenu.heading.setFillColor(sf::Color::White);
         askNicknameMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);
-        askNicknameMenu.heading.setOrigin(GetTextOrigin(askNicknameMenu.heading, {0.5f, 0.5f}));
 
-        askNicknameMenu.subHeading.setString(std::wstring(L"Задать имя?"));
-        askNicknameMenu.subHeading.setFont(game.assets.font);
-        askNicknameMenu.subHeading.setCharacterSize(TEXT_HEADING_2);
+        InitText(askNicknameMenu.subHeading, std::wstring(L"Задать имя?"), game.assets.font, TEXT_HEADING_2);
         askNicknameMenu.subHeading.setStyle(sf::Text::Bold);
-        askNicknameMenu.subHeading.setFillColor(sf::Color::White);
         askNicknameMenu.subHeading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_20_PERCENT);
-        askNicknameMenu.subHeading.setOrigin(GetTextOrigin(askNicknameMenu.subHeading, {0.5f, 0.5f}));
 
-        askNicknameMenu.nicknameText.setString(std::wstring(INPUT_PLACEHOLDER));
-        askNicknameMenu.nicknameText.setFont(game.assets.font);
-        askNicknameMenu.nicknameText.setCharacterSize(TEXT_HEADING_1);
+        InitText(askNicknameMenu.nicknameText, std::wstring(INPUT_PLACEHOLDER), game.assets.font, TEXT_HEADING_1, sf::Color(50, 50, 50));
         askNicknameMenu.nicknameText.setStyle(sf::Text::Italic);
-        askNicknameMenu.nicknameText.setFillColor(sf::Color(50, 50, 50));
         askNicknameMenu.nicknameText.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f);
-        askNicknameMenu.nicknameText.setOrigin(GetTextOrigin(askNicknameMenu.nicknameText, {0.5f, 0.5f}));
 
         int index = 0;
         for (auto& option : askNicknameMenu.options)
         {
-            option.second.textNode.setString(option.second.title);
-            option.second.textNode.setFont(game.assets.font);
-            option.second.textNode.setCharacterSize(TEXT_MENU_ITEM);
-            option.second.textNode.setFillColor(askNicknameMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White);
-            // option.second.textNode.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_20_PERCENT + (index * 30.f));
+            const auto color = askNicknameMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White;
+            InitText(option.second.textNode, option.second.title, game.assets.font, TEXT_MENU_ITEM, color);
             option.second.textNode.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT - OFFSET_TOP_WINDOW_10_PERCENT - (askNicknameMenu.options.size() - index) * 30.f);
-            option.second.textNode.setOrigin(GetTextOrigin(option.second.textNode, {0.5f, 0.5f}));
-
             index++;
         }
     }

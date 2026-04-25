@@ -13,24 +13,16 @@ namespace SnakeGame
         MainMenu& mainMenu = game.GUI.mainMenu;
         ResetMainMenu(mainMenu);
 
-        mainMenu.heading.setString("..::MAIN MENU::..");
-        mainMenu.heading.setFont(game.assets.font);
-        mainMenu.heading.setCharacterSize(TEXT_HEADING_1);
+        InitText(mainMenu.heading, "..::MAIN MENU::..", game.assets.font);
         mainMenu.heading.setStyle(sf::Text::Underlined);
-        mainMenu.heading.setFillColor(sf::Color::White);
         mainMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);
-        mainMenu.heading.setOrigin(GetTextOrigin(mainMenu.heading, {0.5f, 0.5f}));
 
         int index = 0;
         for (auto& option : mainMenu.options)
         {
-            option.second.textNode.setString(option.second.title);
-            option.second.textNode.setFont(game.assets.font);
-            option.second.textNode.setCharacterSize(TEXT_MENU_ITEM);
-            option.second.textNode.setFillColor(mainMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White);
+            const auto color = mainMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White;
+            InitText(option.second.textNode, option.second.title, game.assets.font, TEXT_MENU_ITEM, color);
             option.second.textNode.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_20_PERCENT + (index * 30.f));
-            option.second.textNode.setOrigin(GetTextOrigin(option.second.textNode, {0.5f, 0.5f}));
-
             index++;
         }
     }

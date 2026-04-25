@@ -14,24 +14,16 @@ namespace SnakeGame
         auto& pauseMenu = game.GUI.pauseMenu;
         ResetPauseMenu(pauseMenu);
 
-        pauseMenu.heading.setString("..::Pause::..");
-        pauseMenu.heading.setFont(game.assets.font);
-        pauseMenu.heading.setCharacterSize(TEXT_HEADING_1);
+        InitText(pauseMenu.heading, "..::Pause::..", game.assets.font);
         pauseMenu.heading.setStyle(sf::Text::Underlined);
-        pauseMenu.heading.setFillColor(sf::Color::White);
         pauseMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);
-        pauseMenu.heading.setOrigin(GetTextOrigin(pauseMenu.heading, {0.5f, 0.5f}));
 
         int index = 0;
         for (auto& option : pauseMenu.options)
         {
-            option.second.textNode.setString(option.second.title);
-            option.second.textNode.setFont(game.assets.font);
-            option.second.textNode.setCharacterSize(TEXT_MENU_ITEM);
-            option.second.textNode.setFillColor(pauseMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White);
+            const auto color = pauseMenu.selectedOptionKey == option.first ? sf::Color::Green : sf::Color::White;
+            InitText(option.second.textNode, option.second.title, game.assets.font, TEXT_MENU_ITEM, color);
             option.second.textNode.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_20_PERCENT + (index * 30.f));
-            option.second.textNode.setOrigin(GetTextOrigin(option.second.textNode, {0.5f, 0.5f}));
-
             index++;
         }
     }
