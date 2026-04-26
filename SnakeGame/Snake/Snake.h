@@ -10,6 +10,7 @@ namespace SnakeGame
     {
         std::vector<Segment> segments;
         bool canChangeDirection = true;
+        bool awaitingMoveInput = true;
         unsigned points = 0;
     };
 

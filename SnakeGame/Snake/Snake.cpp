@@ -7,6 +7,7 @@ namespace SnakeGame
     {
         snake.points = 0;
         snake.canChangeDirection = true;
+        snake.awaitingMoveInput = true;
         snake.segments = {
             CreateSegment(SegmentType::Head, {4, NUMBER_CELLS / 2}, assets.snakeHead),
             CreateSegment(SegmentType::Body, {3, NUMBER_CELLS / 2}, assets.snakeBody),
@@ -51,6 +52,43 @@ namespace SnakeGame
 
     void SnakeControl(Snake& snake)
     {
+        if (snake.awaitingMoveInput)
+        {
+            const Segment& head = snake.segments[0];
+
+            auto tryStart = [&](const Direction dir)
+            {
+                if (head.direction == dir)
+                {
+                    snake.awaitingMoveInput = false;
+                }
+                else if (!HasHeadSegmentOppositeDirection(head, dir))
+                {
+                    TryChangeHeadSegmentDirection(snake, dir);
+                    snake.awaitingMoveInput = false;
+                }
+            };
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            {
+                tryStart(Direction::Up);
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            {
+                tryStart(Direction::Down);
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            {
+                tryStart(Direction::Right);
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            {
+                tryStart(Direction::Left);
+            }
+
+            return;
+        }
+
         if (!snake.canChangeDirection) return;
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))

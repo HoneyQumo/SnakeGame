@@ -134,34 +134,38 @@ namespace SnakeGame
             }
 
             SnakeControl(game.snake);
-            UpdateSnake(game.snake, computedDistance);
 
-            if (HasSnakeCollisionWithWall(game.snake.segments[0], game.field) || HasSnakeCollisionWithSelf(game.snake))
+            if (!game.snake.awaitingMoveInput)
             {
-                game.assets.music.stop();
-                game.assets.death.play();
-                PushGameState(game, GameState::GameOver);
+                UpdateSnake(game.snake, computedDistance);
 
-                if (game.score > 0 && (game.leaderboard.array.empty() || game.score > std::prev(game.leaderboard.array.end())->score))
+                if (HasSnakeCollisionWithWall(game.snake.segments[0], game.field) || HasSnakeCollisionWithSelf(game.snake))
                 {
-                    PushGameState(game, GameState::AskNickname);
+                    game.assets.music.stop();
+                    game.assets.death.play();
+                    PushGameState(game, GameState::GameOver);
+
+                    if (game.score > 0 && (game.leaderboard.array.empty() || game.score > std::prev(game.leaderboard.array.end())->score))
+                    {
+                        PushGameState(game, GameState::AskNickname);
+                    }
+
+                    break;
                 }
 
-                break;
-            }
-
-            for (unsigned int i = 0; i < game.apples.size(); ++i)
-            {
-                if (
-                    GetCoordFromPosition(game.snake.segments[0].sprite.getPosition()) ==
-                    GetCoordFromPosition(game.apples[i].sprite.getPosition())
-                )
+                for (unsigned int i = 0; i < game.apples.size(); ++i)
                 {
-                    game.assets.eat.play();
-                    game.score += game.difficulty.value.pointsPerApple;
-                    GrowSnake(game.snake, game.assets);
-                    game.apples.clear();
-                    SpawnApple(game);
+                    if (
+                        GetCoordFromPosition(game.snake.segments[0].sprite.getPosition()) ==
+                        GetCoordFromPosition(game.apples[i].sprite.getPosition())
+                    )
+                    {
+                        game.assets.eat.play();
+                        game.score += game.difficulty.value.pointsPerApple;
+                        GrowSnake(game.snake, game.assets);
+                        game.apples.clear();
+                        SpawnApple(game);
+                    }
                 }
             }
 

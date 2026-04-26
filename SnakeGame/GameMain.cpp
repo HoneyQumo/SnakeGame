@@ -53,6 +53,7 @@ int main()
                         break;
                     case GameState::Pause:
                         PopGameState(game);
+                        game.snake.awaitingMoveInput = true;
                         break;
                     default:
                         PopGameState(game);
@@ -77,6 +78,7 @@ int main()
                         break;
                     case GameState::Pause:
                         PopGameState(game);
+                        game.snake.awaitingMoveInput = true;
                         break;
                     }
                     break;

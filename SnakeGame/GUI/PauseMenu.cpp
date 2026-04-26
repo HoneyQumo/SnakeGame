@@ -44,6 +44,7 @@ namespace SnakeGame
         {
         case PauseMenuOptionKey::Continue:
             PopGameState(game);
+            game.snake.awaitingMoveInput = true;
             break;
         case PauseMenuOptionKey::Exit:
             ResetGame(game);
