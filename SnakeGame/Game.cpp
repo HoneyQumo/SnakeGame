@@ -69,6 +69,7 @@ namespace SnakeGame
         InitSnake(game.snake, game.assets);
 
         game.score = 0;
+        game.isWin = false;
         game.apples.clear();
         SpawnApple(game);
     }
@@ -125,6 +126,13 @@ namespace SnakeGame
         case GameState::MainMenu:
             break;
         case GameState::Playing:
+
+            if (game.snake.segments.size() == NUMBER_CELLS * NUMBER_CELLS)
+            {
+                game.isWin = true;
+                PushGameState(game, GameState::GameOver);
+                break;
+            }
 
             SnakeControl(game.snake);
             UpdateSnake(game.snake, computedDistance);

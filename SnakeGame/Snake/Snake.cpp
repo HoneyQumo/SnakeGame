@@ -120,9 +120,14 @@ namespace SnakeGame
         {
             return true;
         }
-        
+
         /* Collision with wall */
-        return field.cells[coord.x][coord.y].type == CellType::Wall;
+        if (field.cells[coord.x][coord.y].type == CellType::Wall)
+        {
+            return true;
+        }
+        
+        return false;
     }
 
     bool HasSnakeCollisionWithSelf(const Snake& snake)
@@ -131,7 +136,7 @@ namespace SnakeGame
 
         const auto headCoord = GetCoordFromPosition(GetNearestCenter(snake.segments[0].sprite.getPosition()));
 
-        for (unsigned i = 1; i < snake.segments.size(); ++i)
+        for (unsigned i = 2; i < snake.segments.size(); ++i)
         {
             const auto segmentCoord = GetCoordFromPosition(GetNearestCenter(snake.segments[i].sprite.getPosition()));
             if (segmentCoord == headCoord)

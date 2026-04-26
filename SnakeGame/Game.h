@@ -34,6 +34,7 @@ namespace SnakeGame
         std::vector<Apple> apples;
 
         unsigned score = 0;
+        bool isWin = false;
 
         DifficultyLevel difficulty;
 
