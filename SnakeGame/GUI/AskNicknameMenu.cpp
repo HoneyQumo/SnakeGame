@@ -15,7 +15,7 @@ namespace SnakeGame
         AskNicknameMenu& askNicknameMenu = game.GUI.askNicknameMenu;
         ResetAskNicknameMenu(askNicknameMenu);
 
-        InitText(askNicknameMenu.heading, std::wstring(L"Новый рекорд!"), game.assets.font);
+        InitText(askNicknameMenu.heading, std::wstring(L"..::Новый рекорд!::.."), game.assets.font);
         askNicknameMenu.heading.setStyle(sf::Text::Underlined | sf::Text::Bold);
         askNicknameMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);
 

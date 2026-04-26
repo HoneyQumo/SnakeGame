@@ -105,6 +105,7 @@ int main()
                 DifficultyLevelMenuKeyboardHandler(event, game);
                 break;
             case GameState::Settings:
+                SettingsMenuKeyboardHandler(event, game);
             case GameState::Leaderboard:
                 break;
             }

@@ -21,4 +21,5 @@ namespace SnakeGame
 
     bool SerializeAndSaveGame(const Leaderboard& leaderboard);
     bool DeserializeAndLoadLeaderboard(Leaderboard& leaderboard);
+    bool ClearLeaderboard(Game& game);
 }

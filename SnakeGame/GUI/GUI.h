@@ -6,6 +6,7 @@
 #include "GameOverMenu.h"
 #include "HUD.h"
 #include "LeaderboardMenu.h"
+#include "SettingsMenu.h"
 
 namespace SnakeGame
 {
@@ -18,5 +19,6 @@ namespace SnakeGame
         GameOverMenu gameOverMenu;
         LeaderboardMenu leaderboardMenu;
         AskNicknameMenu askNicknameMenu;
+        SettingsMenu settingsMenu;
     };
 }

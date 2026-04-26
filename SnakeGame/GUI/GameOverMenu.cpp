@@ -32,7 +32,7 @@ namespace SnakeGame
         GameOverMenu& gameOverMenu = game.GUI.gameOverMenu;
         ResetGameOverMenu(gameOverMenu);
 
-        InitText(gameOverMenu.heading, std::wstring(L"Количество очков"), game.assets.font);
+        InitText(gameOverMenu.heading, std::wstring(L"..::Количество очков::.."), game.assets.font);
         gameOverMenu.heading.setStyle(sf::Text::Bold);
         gameOverMenu.heading.setPosition(SCREEN_WIDTH / 2.f, OFFSET_TOP_WINDOW_10_PERCENT);
 

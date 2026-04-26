@@ -53,6 +53,7 @@ namespace SnakeGame
         InitGameOverMenu(game);
         InitLeaderboardMenu(game);
         InitAskNicknameMenu(game);
+        InitSettingsMenu(game);
 
         /*Sounds*/
         game.assets.music.setPlayingOffset(sf::seconds(0.f));
@@ -212,6 +213,7 @@ namespace SnakeGame
 
             break;
         case GameState::Settings:
+/            DrawSettingsMenu(window, game.GUI.settingsMenu);
             break;
         case GameState::Leaderboard:
             DrawLeaderboardMenu(window, game.GUI.leaderboardMenu);

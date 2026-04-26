@@ -74,4 +74,20 @@ namespace SnakeGame
 
         return false;
     }
+
+    bool ClearLeaderboard(Game& game)
+    {
+        game.leaderboard.array.clear();
+        game.GUI.leaderboardMenu.leaderboard.clear();
+
+        std::wofstream file(LEADERBOARD_FILE_PATH, std::ios::out | std::ios::trunc);
+
+        if (file.is_open())
+        {
+            file.close();
+            return true;
+        }
+
+        return false;
+    }
 }
