@@ -36,7 +36,7 @@ namespace SnakeGame
         unsigned score = 0;
 
         DifficultyLevel difficulty;
-/
+
         Settings settings;
 
         std::stack<GameState> gameStateStack;

@@ -45,13 +45,34 @@ namespace SnakeGame
 
     void SettingsMenuOptionSelectHandler(Game& game)
     {
+        auto& isSoundState = game.settings.states[SettingsType::Sound];
+        auto& isMusicState = game.settings.states[SettingsType::Music];
+
         switch (game.GUI.settingsMenu.selectedOptionKey)
         {
         case SettingsType::Sound:
-            game.settings.states[SettingsType::Sound] = !game.settings.states[SettingsType::Sound];
+            isSoundState = !isSoundState;
+
+            game.assets.death.setVolume(isSoundState ? SOUNDS_INITIAL_VOLUME : 0.f);
+            game.assets.eat.setVolume(isSoundState ? SOUNDS_INITIAL_VOLUME : 0.f);
+            game.assets.menuToggle.setVolume(isSoundState ? SOUNDS_INITIAL_VOLUME : 0.f);
+            game.assets.menuSelect.setVolume(isSoundState ? SOUNDS_INITIAL_VOLUME : 0.f);
+
             break;
         case SettingsType::Music:
-            game.settings.states[SettingsType::Music] = !game.settings.states[SettingsType::Music];
+            isMusicState = !isMusicState;
+
+            if (isMusicState)
+            {
+                game.assets.music.setVolume(MUSIC_INITIAL_VOLUME);
+                game.assets.music.play();
+            }
+            else
+            {
+                game.assets.music.setVolume(0.f);
+                game.assets.music.stop();
+            }
+
             break;
         case SettingsType::ResetLeaderboard:
             ClearLeaderboard(game);

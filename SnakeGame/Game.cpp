@@ -58,7 +58,11 @@ namespace SnakeGame
         /*Sounds*/
         game.assets.music.setPlayingOffset(sf::seconds(0.f));
         game.assets.music.setLoop(true);
-        game.assets.music.play();
+
+        if (game.settings.states[SettingsType::Music])
+        {
+            game.assets.music.play();
+        }
 
         /* Game Instances */
         InitField(game.field);
@@ -88,19 +92,19 @@ namespace SnakeGame
 
         assert(game.assets.deathBuffer.loadFromFile(RESOURCES_AUDIO + "\\death.wav"));
         game.assets.death.setBuffer(game.assets.deathBuffer);
-        game.assets.death.setVolume(GENERAL_INITIAL_VOLUME);
+        game.assets.death.setVolume(SOUNDS_INITIAL_VOLUME);
 
         assert(game.assets.eatBuffer.loadFromFile(RESOURCES_AUDIO + "\\eat.wav"));
         game.assets.eat.setBuffer(game.assets.eatBuffer);
-        game.assets.eat.setVolume(GENERAL_INITIAL_VOLUME);
+        game.assets.eat.setVolume(SOUNDS_INITIAL_VOLUME);
 
         assert(game.assets.menuToggleBuffer.loadFromFile(RESOURCES_AUDIO + "\\menu-toggle.wav"));
         game.assets.menuToggle.setBuffer(game.assets.menuToggleBuffer);
-        game.assets.menuToggle.setVolume(GENERAL_INITIAL_VOLUME);
+        game.assets.menuToggle.setVolume(SOUNDS_INITIAL_VOLUME);
 
         assert(game.assets.menuSelectBuffer.loadFromFile(RESOURCES_AUDIO + "\\menu-select.wav"));
         game.assets.menuSelect.setBuffer(game.assets.menuSelectBuffer);
-        game.assets.menuSelect.setVolume(GENERAL_INITIAL_VOLUME);
+        game.assets.menuSelect.setVolume(SOUNDS_INITIAL_VOLUME);
 
 
         game.difficulty = {DifficultyLevelType::Medium, LEVEL_CONFIG.at(DifficultyLevelType::Medium)};
@@ -213,7 +217,7 @@ namespace SnakeGame
 
             break;
         case GameState::Settings:
-/            DrawSettingsMenu(window, game.GUI.settingsMenu);
+            DrawSettingsMenu(window, game.GUI.settingsMenu);
             break;
         case GameState::Leaderboard:
             DrawLeaderboardMenu(window, game.GUI.leaderboardMenu);

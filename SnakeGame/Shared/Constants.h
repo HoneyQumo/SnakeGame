@@ -25,7 +25,7 @@ namespace SnakeGame
 
     /* Audio */
     constexpr float MUSIC_INITIAL_VOLUME = 15.f;
-    constexpr float GENERAL_INITIAL_VOLUME = 50.f;
+    constexpr float SOUNDS_INITIAL_VOLUME = 50.f;
 
     /* General */
     // constexpr unsigned int TIMEOUT_BEFORE_RESTART_IN_SECONDS = 2;
