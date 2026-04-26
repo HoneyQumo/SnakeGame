@@ -1,5 +1,4 @@
-﻿// #include "LeaderboardMenu.h"
-#include "../Game.h"
+﻿#include "../Game.h"
 
 namespace SnakeGame
 {

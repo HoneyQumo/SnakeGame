@@ -18,8 +18,6 @@ namespace SnakeGame
                 field.gridTexture.draw(cell.shape);
             }
         }
-
-        // field.gridSprite.setTexture(field.gridTexture.getTexture(), true);
     }
 
     void DrawField(sf::RenderWindow& window, const Field& field)
@@ -31,8 +29,6 @@ namespace SnakeGame
                 window.draw(cell.shape);
             }
         }
-
-        // window.draw(field.gridSprite);
     }
 
     std::vector<sf::Vector2u> GetAvailableCoords(const Game& game)

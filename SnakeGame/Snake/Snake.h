@@ -9,7 +9,6 @@ namespace SnakeGame
     struct Snake
     {
         std::vector<Segment> segments;
-        std::vector<sf::Sprite> turnPointSprite;
         bool canChangeDirection = true;
         unsigned points = 0;
     };

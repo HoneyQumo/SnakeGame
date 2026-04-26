@@ -12,10 +12,6 @@ namespace SnakeGame
         sf::Text textNode;
     };
 
-    // struct Shared
-    // {
-    // };
-
     void InitText(
         sf::Text& node,
         const sf::String& text,

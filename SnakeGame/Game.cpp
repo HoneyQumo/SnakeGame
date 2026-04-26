@@ -196,7 +196,6 @@ namespace SnakeGame
             DrawField(window, game.field);
             DrawApples(window, game.apples);
             DrawSnake(window, game.snake);
-            // DrawTurnPointSprite(window, game.snake);
 
             window.setView(HUDView);
             DrawHUD(window, game.GUI.HUD);
@@ -212,11 +211,6 @@ namespace SnakeGame
 
             break;
         case GameState::Pause:
-            // if (game.GUI.pauseMenu.heading.getString().isEmpty())
-            // {
-            //     InitPauseMenu(game);
-            // }
-
             DrawPauseMenu(window, game.GUI.pauseMenu);
 
             break;

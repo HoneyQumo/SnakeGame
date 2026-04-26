@@ -92,12 +92,6 @@ namespace SnakeGame
             {
                 MoveSegmentWithTurnPoints(segment, computedDistance);
             }
-
-            if (!snake.turnPointSprite.empty() && segment.type == SegmentType::Tail)
-            {
-                const auto& position = segment.sprite.getPosition();
-                UpdateTurnPointSprite(snake.turnPointSprite, position);
-            }
         }
     }
 

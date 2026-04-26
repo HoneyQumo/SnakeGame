@@ -48,9 +48,6 @@ namespace SnakeGame
                 segment.sprite.setPosition(GetNearestCenter(segment.sprite.getPosition()));
                 segment.turnPoints.push(CreateTurnPoint(headPositionCenter, newDirection));
             }
-
-            // const auto oldDirection = headSegment.direction;
-            // snake.turnPointSprite.push_back(CreateTurnPointSprite(snake.bodyAngleTexture, headSegment.sprite.getPosition(), {oldDirection, newDirection}));
         }
     }
 
