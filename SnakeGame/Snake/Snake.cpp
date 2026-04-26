@@ -112,29 +112,28 @@ namespace SnakeGame
     bool HasSnakeCollisionWithWall(const Segment& head, const Field& field)
     {
         /* Collision with window border */
-        const auto& position = head.sprite.getPosition();
-        if (position.x < 0 || position.y < 0 || position.x + CELL_WIDTH / 2.f >= SCREEN_WIDTH || position.y + CELL_HEIGHT / 2.f >= SCREEN_HEIGHT)
+        const auto position = head.sprite.getPosition();
+        const auto nearestCenter = GetNearestCenter(position);
+        const auto coord = GetCoordFromPosition(nearestCenter);
+
+        if (coord.x < 0 || coord.y < 0 || coord.x >= static_cast<int>(NUMBER_CELLS) || coord.y >= static_cast<int>(NUMBER_CELLS))
         {
             return true;
         }
-
-
-        /* Collision with cell.type == Wall */
-        const auto coord = GetCoordFromPosition(position);
-        const auto cell = field.cells[coord.x][coord.y];
-
-        return cell.type == CellType::Wall;
+        
+        /* Collision with wall */
+        return field.cells[coord.x][coord.y].type == CellType::Wall;
     }
 
     bool HasSnakeCollisionWithSelf(const Snake& snake)
     {
         if (snake.segments.size() < 4) return false;
 
-        const auto headCoord = GetCoordFromPosition(snake.segments[0].sprite.getPosition());
+        const auto headCoord = GetCoordFromPosition(GetNearestCenter(snake.segments[0].sprite.getPosition()));
 
         for (unsigned i = 1; i < snake.segments.size(); ++i)
         {
-            const auto segmentCoord = GetCoordFromPosition(snake.segments[i].sprite.getPosition());
+            const auto segmentCoord = GetCoordFromPosition(GetNearestCenter(snake.segments[i].sprite.getPosition()));
             if (segmentCoord == headCoord)
             {
                 return true;
