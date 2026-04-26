@@ -82,7 +82,6 @@ namespace SnakeGame
         /* Graphics */
         assert(game.assets.snakeHead.loadFromFile(RESOURCES_GRAPHICS + "\\head_right.png"));
         assert(game.assets.snakeBody.loadFromFile(RESOURCES_GRAPHICS + "\\body_horizontal.png"));
-        assert(game.assets.snakeBodyAngle.loadFromFile(RESOURCES_GRAPHICS + "\\body_bottomright.png"));
         assert(game.assets.snakeTail.loadFromFile(RESOURCES_GRAPHICS + "\\tail_left.png"));
         assert(game.assets.apple.loadFromFile(RESOURCES_GRAPHICS + "\\apple.png"));
 

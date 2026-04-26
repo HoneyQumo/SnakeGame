@@ -9,7 +9,6 @@ namespace SnakeGame
         sf::Texture apple,
                     snakeHead,
                     snakeBody,
-                    snakeBodyAngle,
                     snakeTail;
 
         sf::Font font;

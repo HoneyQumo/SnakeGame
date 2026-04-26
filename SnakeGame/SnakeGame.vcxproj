@@ -481,7 +481,6 @@
             <AdditionalIncludeDirectories>F:\XyzSchool\cpp-course\SnakeGame\\SFML\SFML-2.5.1\include;</AdditionalIncludeDirectories>
             <LinkCompiled>true</LinkCompiled>
         </ClCompile>
-        <ClCompile Include="Shared\Direction.cpp"/>
         <ClCompile Include="Shared\Math.cpp">
             <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
             <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
