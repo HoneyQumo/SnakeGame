@@ -153,10 +153,10 @@ namespace SnakeGame
 
             for (unsigned int i = 0; i < game.apples.size(); ++i)
             {
-                if (IsRectangleCollide(
-                    game.snake.segments[0].sprite.getPosition(), {CELL_WIDTH, CELL_HEIGHT},
-                    game.apples[i].sprite.getPosition(), {APPLE_SIZE, APPLE_SIZE}
-                ))
+                if (
+                    GetCoordFromPosition(game.snake.segments[0].sprite.getPosition()) ==
+                    GetCoordFromPosition(game.apples[i].sprite.getPosition())
+                )
                 {
                     game.assets.eat.play();
                     game.score += game.difficulty.value.pointsPerApple;
